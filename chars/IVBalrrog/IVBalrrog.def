@@ -1,0 +1,30 @@
+
+[Info]
+name = "IVBalrrog"      
+displayname = "Balrog"
+pal.defaults= 1
+author = "Jose Cuervo-(dragon972 PAtch)"
+
+[Files]
+cmd     =IVBalrrog.cmd   
+cns     =constant.cns  
+st      =IVBalrrog.cns  
+st1      = smove1.cns 
+stcommon = common1.cns 
+sprite  = IVBalrrog.sff   
+anim    =IVBalrrog.air   
+sound   = IVBalrrog.snd 
+  
+pal1  =IVBalrrog1.act  
+pal2  =IVBalrrog2.act
+pal3  =IVBalrrog3.act
+pal4  =IVBalrrog4.act
+pal5  =IVBalrrog5.act
+pal6  =IVBalrrog6.act
+
+;---------------------------------------------------------------------------
+[Arcade]
+intro.storyboard=
+ending.storyboard= Ending_Balrog.def
+
+

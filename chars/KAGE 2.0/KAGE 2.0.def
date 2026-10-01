@@ -1,0 +1,42 @@
+; Definition file for Kage
+; Contains all the filenames needed for the character
+
+; Player information
+[Info]
+name ="KAGE 2.0"
+displayname ="Kage"
+versiondate =12,14,2018
+mugenversion =04,14,2002
+author ="LESSARD"
+pal.defaults =1,2,3,4,5,6,7,8,9,10,11,12
+
+; Files for the player
+[Files]
+cmd     =KAGE.cmd
+cns     =Coding/System.cns
+st      =Coding/System.cns
+stcommon =common1.cns
+sprite  =KAGE.sff
+anim    =KAGE.air
+sound   =KAGE.snd
+pal1=pals/KAGE.acT
+pal2=pals/BLACK.act
+pal3=pals/GREEN.act
+pal4=pals/RYU.act
+pal5=pals/RYU SF1.act
+pal6=pals/KEN.act
+pal7=pals/SHIN.act
+pal8=pals/BLUE.act
+pal9=pals/RYU CVS.ACT;WHITE.act
+pal10=pals/YELLOW.act
+pal11=pals/ASURA.act
+pal12=pals/EVIL.act
+st1=Coding/Normal.cns
+st2=Coding/Specials.cns
+st3=Coding/Helpers.cns
+st4=Coding/Supers.cns
+
+; Arcade mode
+[Arcade]
+intro.storyboard =Extra/intro.def
+ending.storyboard =Extra/ending.def

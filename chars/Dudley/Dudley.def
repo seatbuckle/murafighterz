@@ -1,0 +1,35 @@
+
+
+[Info]
+name ="Dudley"
+displayname ="Dudley"
+versiondate =
+mugenversion =
+author ="Jose Cuervo"
+pal.defaults =1,11
+
+[Files]
+cmd     =Dudley.cmd
+cns     =dudley.cns
+st      =dudley.cns
+stcommon =common1.cns
+sprite  =dudley.sff
+anim    =dudley.air
+sound   =dudley.snd
+
+pal1=Dudley.act
+pal2=1.act
+pal3=2.act
+pal4=3.act
+pal5=4.act
+pal6=5.act
+pal7=6.act
+pal8=7.act
+pal9=8.act
+pal10=9.act
+pal11=10.act
+
+; Arcade mode
+[Arcade]
+intro.storyboard = 
+ending.storyboard = 
