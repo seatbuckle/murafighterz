@@ -1,0 +1,91 @@
+;ハイパーアーマー
+[StateDef 9000]
+Type = S
+MoveType = I
+Physics = N
+Ctrl = 0
+
+[State 9000, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = SelfAnimExist(Parent,Anim)
+Value = Parent,Anim
+Elem = Parent,AnimElemNo(0)
+
+[State 9000, LifeSet];簡単にアーマーが死なないように
+Type = LifeSet
+Trigger1 = 1
+Value = 999999999
+
+[State 9000, NotHitBy];試合外無敵
+Type = NotHitBy
+Trigger1 = RoundState != 2
+Value = SCA
+
+[State 9000, NotHitBy];投げ無効
+Type = NotHitBy
+Trigger1 = 1
+Value = ,AT
+
+[State 9000, AssertSpecial];透明化と影消去
+Type = AssertSpecial
+Trigger1 = 1
+Flag = Invisible
+Flag2 = NoShadow
+
+[State 9000, BindToParent];本体に追従
+Type = BindToParent
+Trigger1 = 1
+Time = 1
+Facing = 1
+Pos = 0,0
+
+[State 9000, HitOverRide];攻撃を喰らったら9001ステートへ移動
+Type = HitOverRide
+Trigger1 = IsHelper(9000)
+Trigger1 = Var(41) := Root,Var(40) ;無敵時間代入
+Attr = SCA,AA,AP,AT
+StateNo = 9001
+
+[State 9000, DestroySelf]
+Type = DestroySelf
+Trigger1 = Parent,Life = 0
+
+;---------------------------------------------------------------------------
+
+;被弾後無敵時間中に居るステート
+[StateDef 9001]
+Type = A
+MoveType = I
+Physics = N
+Ctrl = 0
+
+[State 9001, NotHitBy];完全無敵
+Type = NotHitby
+Trigger1 = 1
+Value = SCA
+
+[State 9001, AssertSpecial];透明化と影消去
+Type = AssertSpecial
+Trigger1 = 1
+Flag = Invisible
+Flag2 = NoShadow
+
+[State 9001, BindToParent];本体に追従
+Type = BindToParent
+Trigger1 = 1
+Time = 1
+Facing = 1
+Pos = 0,0
+
+[State 9001, ChangeState];無敵時間終了後は9000ステートへ帰る
+Type = ChangeState
+Trigger1 = Var(41) = 0
+Value = 9000
+
+[State 9001, DestroySelf]
+Type = DestroySelf
+Trigger1 = Parent,Life = 0
+
+
+
+

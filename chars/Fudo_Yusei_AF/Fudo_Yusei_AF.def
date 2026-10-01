@@ -1,0 +1,44 @@
+; ‚±‚±‚ÉƒLƒƒƒ‰î•ñ‚ğ‘‚¢‚Ä‚­‚¾‚³‚¢
+[Info]
+name         = "•s“®—V¯"
+displayname  = "Fudo Yusei"
+versiondate  = 04,01,2023
+mugenversion = 11,22,2000
+author       = " Eikouya -Night of Glory- "
+pal.defaults = 1,2,3,4
+
+
+[Files]
+cmd      = Yusei_cmd.cns
+Cns      = Yusei.cns
+
+St       = Yusei_state00.cns
+St1      = Yusei_state01.cns
+St2      = Yusei_state02.cns
+St3      = Yusei_state03.cns
+St4      = Yusei_armor.cns
+St5      = Yusei_OPTION.cns
+
+stcommon = common.cns 
+
+sprite  = Yusei.sff
+anim    = Yusei.air
+sound   = Yusei.snd
+
+pal1 = Yusei.act
+pal2 = Yusei.act
+pal3 = Yusei.act
+pal4 = Yusei.act
+pal5 = Yusei.act
+pal6 = Yusei.act
+pal7 = Yusei.act
+pal8 = Yusei.act
+pal9 = Yusei.act
+pal10 = Yusei.act
+pal11 = Yusei.act
+pal12 = Yusei.act
+
+
+[Arcade]
+intro.storyboard= 
+ending.storyboard=

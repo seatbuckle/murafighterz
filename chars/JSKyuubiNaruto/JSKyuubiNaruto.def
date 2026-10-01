@@ -1,0 +1,26 @@
+;***************************************************************************;
+;******************* Created in Fighter Factory Ultimate *******************;
+;*******************      http://www.virtualltek.com     *******************;
+;***************************************************************************;
+
+[Info]
+name = "Naruto Kyuubi"
+displayname = "Kyuubi Naruto"
+versiondate = 
+mugenversion = 
+author = "JoeStar"
+pal.defaults = 1
+
+[Files]
+sprite = KNaruto.sff
+anim = KNaruto.air
+sound = KNaruto.snd
+cmd = KNaruto.cmd
+cns = KNaruto.cns
+stcommon = common1.cns
+st = KNaruto.cns
+pal1 = KNaruto.act
+
+[Arcade]
+intro.storyboard = 
+ending.storyboard = 

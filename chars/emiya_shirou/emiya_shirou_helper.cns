@@ -1,0 +1,1752 @@
+;カットイン
+[StateDef 6920]
+Type    = S
+Movetype= I
+Physics = N
+Anim = 6920
+SprPriority = -3
+
+;--------------------透過設定
+[State 6920, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+;--------------------速度設定
+[State 6920, VelSet]
+Type = VelSet
+Trigger1 = Time = 0
+X = 12.0
+
+[State 6920, VelSet]
+Type = VelSet
+Trigger1 = Time = 16
+X = 1.0
+
+[State 6920, VelSet]
+Type = Null;VelSet
+Trigger1 = Time = 40
+X = 3.0
+
+;--------------------明度設定
+[State 6920, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+V = 1
+Value = 256
+
+[State 6920, VarAdd];減少
+Type = VarAdd
+Trigger1 = Time >= 40
+V = 1
+Value = -13
+
+[State 6920, PalFX]
+Type = PalFX
+Trigger1 = 1
+Time = 1
+Add = 0, 0, 0
+Mul = Var(1), Var(1), Var(1)
+
+;--------------------サブ設定
+;--------------------拡大率設定
+[State 6920, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+FV = 1
+Value = 0.50
+
+[State 6920, VarAdd];増加
+Type = VarAdd
+Trigger1 = Time >= 40
+FV = 1
+Value = 0.015
+
+[State 6920, AngleDraw]
+Type = AngleDraw
+Trigger1 = 1
+Value = 0
+Scale = FVar(1), FVar(1)
+
+[State 6920, ModifyExplod]
+type = ModifyExplod
+Trigger1 = NumExplod(6921) = 1
+ID = 6921
+Scale = FVar(1), FVar(1)
+
+;--------------------消滅条件
+[State 6920, RemoveExplod];枠消去
+Type = RemoveExplod
+Trigger1 = Var(1) < 13
+ID = 6921
+
+[State 6920, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(1) < 13
+
+
+[StateDef 6921]
+Type    = S
+Movetype= I
+Physics = N
+Anim = 6921
+SprPriority = -3
+
+;--------------------透過設定
+[State 6921, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+;--------------------速度設定
+[State 6921, VelSet]
+Type = VelSet
+Trigger1 = Time = 0
+X = 12.0
+
+[State 6921, VelSet]
+Type = VelSet
+Trigger1 = Time = 16
+X = 1.0
+
+[State 6921, VelSet]
+Type = Null;VelSet
+Trigger1 = Time = 40
+X = 3.0
+
+;--------------------明度設定
+[State 6921, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+V = 1
+Value = 256
+
+[State 6921, VarAdd];減少
+Type = VarAdd
+Trigger1 = Time >= 40
+V = 1
+Value = -13
+
+[State 6921, PalFX]
+Type = PalFX
+Trigger1 = 1
+Time = 1
+Add = 0, 0, 0
+Mul = Var(1), Var(1), Var(1)
+
+;--------------------サブ設定
+;--------------------拡大率設定
+[State 6921, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+FV = 1
+Value = 0.60
+
+[State 6921, VarAdd];増加
+Type = VarAdd
+Trigger1 = Time >= 40
+FV = 1
+Value = 0.015
+
+[State 6921, AngleDraw]
+Type = AngleDraw
+Trigger1 = 1
+Value = 0
+Scale = FVar(1), FVar(1)
+
+[State 6921, Angleset]
+type = AngleSet
+trigger1 = 1
+value = 30
+
+[State 6921, ModifyExplod]
+type = ModifyExplod
+Trigger1 = NumExplod(6921) = 1
+ID = 6921
+Scale = FVar(1), FVar(1)
+
+;--------------------消滅条件
+[State 6921, RemoveExplod];枠消去
+Type = RemoveExplod
+Trigger1 = Var(1) < 13
+ID = 6921
+
+[State 6921, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(1) < 13
+;--------------------
+[StateDef 6922]
+Type    = S
+Movetype= I
+Physics = N
+Anim = 6922
+SprPriority = -3
+
+;--------------------透過設定
+[State 6922, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+;--------------------速度設定
+[State 6922, VelSet]
+Type = VelSet
+Trigger1 = Time = 0
+X = 12.0
+
+[State 6922, VelSet]
+Type = VelSet
+Trigger1 = Time = 16
+X = 1.0
+
+[State 6922, VelSet]
+Type = Null;VelSet
+Trigger1 = Time = 40
+X = 3.0
+
+;--------------------明度設定
+[State 6922, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+V = 1
+Value = 256
+
+[State 6922, VarAdd];減少
+Type = VarAdd
+Trigger1 = Time >= 40
+V = 1
+Value = -13
+
+[State 6922, PalFX]
+Type = PalFX
+Trigger1 = 1
+Time = 1
+Add = 0, 0, 0
+Mul = Var(1), Var(1), Var(1)
+
+;--------------------サブ設定
+;--------------------拡大率設定
+[State 6922, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+FV = 1
+Value = 0.80
+
+[State 6922, VarAdd];増加
+Type = VarAdd
+Trigger1 = Time >= 40
+FV = 1
+Value = 0.015
+
+[State 6922, AngleDraw]
+Type = AngleDraw
+Trigger1 = 1
+Value = 0
+Scale = FVar(1), FVar(1)
+
+[State 6922, ModifyExplod]
+type = ModifyExplod
+Trigger1 = NumExplod(6921) = 1
+ID = 6921
+Scale = FVar(1), FVar(1)
+
+;--------------------消滅条件
+[State 6922, RemoveExplod];枠消去
+Type = RemoveExplod
+Trigger1 = Var(1) < 13
+ID = 6921
+
+[State 6922, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(1) < 13
+
+
+[StateDef 6923]
+Type    = S
+Movetype= I
+Physics = N
+Anim = 6923
+SprPriority = -3
+
+;--------------------透過設定
+[State 6923, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+;--------------------速度設定
+[State 6923, VelSet]
+Type = VelSet
+Trigger1 = Time = 0
+X = 12.0
+
+[State 6923, VelSet]
+Type = VelSet
+Trigger1 = Time = 16
+X = 1.0
+
+[State 6923, VelSet]
+Type = Null;VelSet
+Trigger1 = Time = 40
+X = 3.0
+
+;--------------------明度設定
+[State 6923, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+V = 1
+Value = 256
+
+[State 6923, VarAdd];減少
+Type = VarAdd
+Trigger1 = Time >= 40
+V = 1
+Value = -13
+
+[State 6923, PalFX]
+Type = PalFX
+Trigger1 = 1
+Time = 1
+Add = 0, 0, 0
+Mul = Var(1), Var(1), Var(1)
+
+;--------------------サブ設定
+;--------------------拡大率設定
+[State 6923, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+FV = 1
+Value = 0.50
+
+[State 6923, VarAdd];増加
+Type = VarAdd
+Trigger1 = Time >= 40
+FV = 1
+Value = 0.015
+
+[State 6923, AngleDraw]
+Type = AngleDraw
+Trigger1 = 1
+Value = 0
+Scale = FVar(1), FVar(1)
+
+[State 6923, ModifyExplod]
+type = ModifyExplod
+Trigger1 = NumExplod(6921) = 1
+ID = 6921
+Scale = FVar(1), FVar(1)
+
+;--------------------消滅条件
+[State 6923, RemoveExplod];枠消去
+Type = RemoveExplod
+Trigger1 = Var(1) < 13
+ID = 6921
+
+[State 6923, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(1) < 13
+;--------------------
+[StateDef 6924]
+Type    = S
+Movetype= I
+Physics = N
+Anim = 6924
+SprPriority = -3
+
+;--------------------透過設定
+[State 6924, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+;--------------------速度設定
+[State 6924, VelSet]
+Type = VelSet
+Trigger1 = Time = 0
+X = 12.0
+
+[State 6924, VelSet]
+Type = VelSet
+Trigger1 = Time = 16
+X = 1.0
+
+[State 6924, VelSet]
+Type = Null;VelSet
+Trigger1 = Time = 40
+X = 3.0
+
+;--------------------明度設定
+[State 6924, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+V = 1
+Value = 256
+
+[State 6924, VarAdd];減少
+Type = VarAdd
+Trigger1 = Time >= 40
+V = 1
+Value = -13
+
+[State 6924, PalFX]
+Type = PalFX
+Trigger1 = 1
+Time = 1
+Add = 0, 0, 0
+Mul = Var(1), Var(1), Var(1)
+
+;--------------------サブ設定
+;--------------------拡大率設定
+[State 6924, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+FV = 1
+Value = 0.50
+
+[State 6924, VarAdd];増加
+Type = VarAdd
+Trigger1 = Time >= 40
+FV = 1
+Value = 0.015
+
+[State 6924, AngleDraw]
+Type = AngleDraw
+Trigger1 = 1
+Value = 0
+Scale = FVar(1), FVar(1)
+
+[State 6924, ModifyExplod]
+type = ModifyExplod
+Trigger1 = NumExplod(6921) = 1
+ID = 6921
+Scale = FVar(1), FVar(1)
+
+;--------------------消滅条件
+[State 6924, RemoveExplod];枠消去
+Type = RemoveExplod
+Trigger1 = Var(1) < 13
+ID = 6921
+
+[State 6924, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(1) < 13
+
+
+[StateDef 6925]
+Type    = S
+Movetype= I
+Physics = N
+Anim = 6925
+SprPriority = -3
+
+;--------------------透過設定
+[State 6925, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+;--------------------速度設定
+[State 6925, VelSet]
+Type = VelSet
+Trigger1 = Time = 0
+X = 12.0
+
+[State 6925, VelSet]
+Type = VelSet
+Trigger1 = Time = 16
+X = 1.0
+
+[State 6925, VelSet]
+Type = Null;VelSet
+Trigger1 = Time = 40
+X = 3.0
+
+;--------------------明度設定
+[State 6925, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+V = 1
+Value = 256
+
+[State 6925, VarAdd];減少
+Type = VarAdd
+Trigger1 = Time >= 40
+V = 1
+Value = -13
+
+[State 6925, PalFX]
+Type = PalFX
+Trigger1 = 1
+Time = 1
+Add = 0, 0, 0
+Mul = Var(1), Var(1), Var(1)
+
+;--------------------サブ設定
+;--------------------拡大率設定
+[State 6925, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+FV = 1
+Value = 0.50
+
+[State 6925, VarAdd];増加
+Type = VarAdd
+Trigger1 = Time >= 40
+FV = 1
+Value = 0.015
+
+[State 6925, AngleDraw]
+Type = AngleDraw
+Trigger1 = 1
+Value = 0
+Scale = FVar(1), FVar(1)
+
+[State 6925, ModifyExplod]
+type = ModifyExplod
+Trigger1 = NumExplod(6921) = 1
+ID = 6921
+Scale = FVar(1), FVar(1)
+
+;--------------------消滅条件
+[State 6925, RemoveExplod];枠消去
+Type = RemoveExplod
+Trigger1 = Var(1) < 13
+ID = 6921
+
+[State 6925, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(1) < 13
+;--------------------
+[StateDef 6926]
+Type    = S
+Movetype= I
+Physics = N
+Anim = 6926
+SprPriority = -3
+
+;--------------------透過設定
+[State 6926, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+;--------------------速度設定
+[State 6926, VelSet]
+Type = VelSet
+Trigger1 = Time = 0
+X = 12.0
+
+[State 6926, VelSet]
+Type = VelSet
+Trigger1 = Time = 16
+X = 1.0
+
+[State 6926, VelSet]
+Type = Null;VelSet
+Trigger1 = Time = 40
+X = 3.0
+
+;--------------------明度設定
+[State 6926, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+V = 1
+Value = 256
+
+[State 6926, VarAdd];減少
+Type = VarAdd
+Trigger1 = Time >= 40
+V = 1
+Value = -13
+
+[State 6926, PalFX]
+Type = PalFX
+Trigger1 = 1
+Time = 1
+Add = 0, 0, 0
+Mul = Var(1), Var(1), Var(1)
+
+;--------------------サブ設定
+;--------------------拡大率設定
+[State 6926, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+FV = 1
+Value = 0.70
+
+[State 6926, VarAdd];増加
+Type = VarAdd
+Trigger1 = Time >= 40
+FV = 1
+Value = 0.015
+
+[State 6926, AngleDraw]
+Type = AngleDraw
+Trigger1 = 1
+Value = 0
+Scale = FVar(1), FVar(1)
+
+[State 6926, ModifyExplod]
+type = ModifyExplod
+Trigger1 = NumExplod(6921) = 1
+ID = 6921
+Scale = FVar(1), FVar(1)
+
+;--------------------消滅条件
+[State 6926, RemoveExplod];枠消去
+Type = RemoveExplod
+Trigger1 = Var(1) < 13
+ID = 6921
+
+[State 6926, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(1) < 13
+
+
+[StateDef 6927]
+Type    = S
+Movetype= I
+Physics = N
+Anim = 6927
+SprPriority = -3
+
+;--------------------透過設定
+[State 6927, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+;--------------------速度設定
+[State 6927, VelSet]
+Type = VelSet
+Trigger1 = Time = 0
+X = 12.0
+
+[State 6927, VelSet]
+Type = VelSet
+Trigger1 = Time = 16
+X = 1.0
+
+[State 6927, VelSet]
+Type = Null;VelSet
+Trigger1 = Time = 40
+X = 3.0
+
+;--------------------明度設定
+[State 6927, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+V = 1
+Value = 256
+
+[State 6927, VarAdd];減少
+Type = VarAdd
+Trigger1 = Time >= 40
+V = 1
+Value = -13
+
+[State 6927, PalFX]
+Type = PalFX
+Trigger1 = 1
+Time = 1
+Add = 0, 0, 0
+Mul = Var(1), Var(1), Var(1)
+
+;--------------------サブ設定
+;--------------------拡大率設定
+[State 6927, VarSet];初期化
+Type = VarSet
+Trigger1 = Time = 0
+FV = 1
+Value = 0.50
+
+[State 6927, VarAdd];増加
+Type = VarAdd
+Trigger1 = Time >= 40
+FV = 1
+Value = 0.015
+
+[State 6927, AngleDraw]
+Type = AngleDraw
+Trigger1 = 1
+Value = 0
+Scale = FVar(1), FVar(1)
+
+[State 6927, ModifyExplod]
+type = ModifyExplod
+Trigger1 = NumExplod(6921) = 1
+ID = 6921
+Scale = FVar(1), FVar(1)
+
+;--------------------消滅条件
+[State 6927, RemoveExplod];枠消去
+Type = RemoveExplod
+Trigger1 = Var(1) < 13
+ID = 6921
+
+[State 6927, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(1) < 13
+;--------------------
+[Statedef 3820]
+type = A
+movetype = I
+physics = N
+anim = 9999
+ctrl = 0
+sprpriority = 2
+
+[State 1540, 1]
+type = Explod
+trigger1 = time = 0
+ID = 3820
+anim = 3820
+postype = p1
+pos = 0, 0
+sprpriority = 9
+bindtime = 1
+ownpal = 0
+persistent = 0
+supermove = 1
+pausemovetime = 999
+ignorehitpause = 1
+scale = 0.25,0.25
+
+[State 1540, 1]
+type = ModifyExplod
+trigger1 = time >= 1
+ID = 3820
+scale = var(0)*0.001,var(0)*0.001
+supermove = 1
+
+[State 1540, 1]
+type = varset
+trigger1 = time = 0
+var(0) = 250
+supermove = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time >= 1
+var(0) = 15
+supermove = 1
+
+[State 1540, 1]
+type = Explod
+trigger1 = time = 30
+ID = 3821
+anim = 3821
+postype = p1
+pos = 0, 0
+sprpriority = 9
+bindtime = 1
+ownpal = 0
+persistent = 0
+supermove = 1
+pausemovetime = 999
+ignorehitpause = 1
+scale = 0.5,0.5
+
+[State 1540, 1]
+type = ModifyExplod
+trigger1 = time >= 31
+ID = 3821
+scale = var(1)*0.001,var(1)*0.001
+supermove = 1
+
+[State 1540, 1]
+type = varset
+trigger1 = time = 30
+var(1) = 500
+supermove = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time >= 31
+var(1) = 16
+supermove = 1
+
+[State 1540, 1]
+type = Explod
+trigger1 = time = 35
+ID = 3822
+anim = 3822
+postype = p1
+pos = 0, 0
+sprpriority = 9
+bindtime = 1
+ownpal = 0
+persistent = 0
+supermove = 1
+pausemovetime = 999
+ignorehitpause = 1
+scale = 0.5,0.5
+
+[State 1540, 1]
+type = ModifyExplod
+trigger1 = time >= 36
+ID = 3822
+scale = var(2)*0.001,var(2)*0.001
+supermove = 1
+
+[State 1540, 1]
+type = varset
+trigger1 = time = 35
+var(2) = 500
+supermove = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time >= 36
+var(2) = 14
+supermove = 1
+
+[State 3002,1]
+type = Palfx
+trigger1 = time >= 19
+trigger1 = time < 30
+trigger2 = time >= 31
+trigger2 = time < 35
+trigger3 = time >= 37
+add = var(3),var(3),var(3)
+sinadd = 0, 0, 0
+time = 1
+persistent = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time = 0
+var(3) = 0
+supermove = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time >= 19
+var(3) = -2
+supermove = 1
+persistent = 1
+
+[State 1540, 1]
+type = varset
+trigger1 = time = 31
+var(3) = 0
+supermove = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time >= 31
+var(3) = -1
+supermove = 1
+persistent = 1
+
+[State 1540, 1]
+type = varset
+trigger1 = time = 36
+var(3) = 0
+supermove = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time >= 36
+trigger1 = numexplod(3822)
+var(3) = -1
+supermove = 1
+persistent = 1
+
+[State 1540, 1]
+type = destroyself
+trigger1 = time >= 36
+trigger1 = !numexplod(3822)
+
+
+
+
+[Statedef 3821]
+type = A
+movetype = I
+physics = N
+anim = 9999
+ctrl = 0
+sprpriority = 2
+
+[State 3002,1]
+type = BGPalfx
+triggerall = 1
+trigger1 = root,stateno != 4002
+trigger2 = root,stateno = 4002
+trigger2 = time > 20
+add = var(4),var(4),var(4)
+sinadd = 10, 10, 10
+time = 1
+supermove = 1
+ignorehitpause = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time <= 10
+var(4) = -8
+supermove = 1
+persistent = 1
+
+[State 1540, 1]
+type = changestate
+triggerall = time > 10
+trigger1 = root,stateno != [3000,4999]
+trigger1 = root,stateno != 1070
+trigger2 = root,movetype = H
+trigger3 = root,stateno = 3101
+
+value = 3822
+
+[Statedef 3822]
+type = A
+movetype = I
+physics = N
+anim = 9999
+ctrl = 0
+sprpriority = 2
+
+[State 3002,1]
+type = BGPalfx
+trigger1 = 1
+add = var(4),var(4),var(4)
+sinadd = 10, 10, 10
+time = 1
+supermove = 1
+ignorehitpause = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time >= 0
+var(4) = 7
+supermove = 1
+persistent = 1
+
+[State 1540, 1]
+type = destroyself
+trigger1 = var(4) >= -7
+
+
+
+[Statedef 3823]
+type = A
+movetype = I
+physics = N
+anim = 9999
+ctrl = 0
+sprpriority = 2
+
+[State 3002,1]
+type = BGPalfx
+trigger1 = 1
+add = var(4),var(4),var(4)
+sinadd = 10, 10, 10
+time = 1
+supermove = 1
+ignorehitpause = 1
+
+[State 1540, 1]
+type = varadd
+trigger1 = time >= 0
+var(4) = 3
+supermove = 1
+persistent = 1
+
+[State 1540, 1]
+type = destroyself
+trigger1 = var(4) >= -3
+
+[State 1540, 1]
+type = changestate
+trigger1 = root,stateno != [3000,4999]
+value = 3822
+;=============================================================================
+[Statedef 780]
+type = A
+movetype = I
+physics = N
+anim = 780
+ctrl = 0
+velset = 0,0
+
+;=============================================================================
+
+[State 4000];BURSTゲージ位置調整(横)
+type = varset
+trigger1 = 1
+var(7) = 0;(-30～130)
+
+[State 4000];BURSTゲージ位置調整(縦)
+type = varset
+trigger1 = 1
+var(8) = 0;(-30～196)
+
+;=========================================================================
+
+[State 4000]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+flag2 = invisible
+persistent = 1
+ignorehitpause = 1
+
+[State 4000]
+type = varset
+trigger1 = 1
+fvar(7) = 1
+
+[State 4000]
+type = varset
+trigger1 = root,numpartner
+trigger1 = partner,numhelper(780+partner,id)
+fvar(7) = 0.5
+
+[State 4000]
+type = varset
+trigger1 = 1
+var(9) = 0
+
+[State 4000]
+type = varset
+trigger1 = root,numpartner
+trigger1 = root,id < partner,id
+trigger1 = partner,numhelper(780+partner,id)
+var(9) = ifelse(root,teamside = 1,-2,23)
+
+[State 4000]
+type = varset
+trigger1 = root,numpartner
+trigger1 = root,id > partner,id
+trigger1 = partner,numhelper(780+partner,id)
+var(9) = ifelse(root,teamside = 1,24,-3)
+
+
+[State 1000, 6]
+type = explod
+trigger1 = numexplod(782+root,id) = 0
+anim = 782
+id = 782+root,id
+postype = left
+pos = ifelse(root,teamside = 1,33+var(7),243-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -9
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.5*fvar(7),0.5
+
+[State 1000, 6]
+type = modifyexplod
+trigger1 = 1
+id = 782+root,id
+scale = (0.666*root,fvar(33))*0.5*fvar(7),0.5
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+ignorehitpause = 1
+
+[State 1000, 6]
+type = explod
+trigger1 = numexplod(780+root,id) = 0
+anim = 780
+id = 780+root,id
+postype = left
+pos = ifelse(root,teamside = 1,33+var(7),243-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.5*fvar(7),0.5
+
+[State 1000, 6]
+type = explod
+trigger1 = numexplod(781+root,id) = 0
+trigger1 = root,fvar(33) >= 1.5
+anim = 781
+id = 781+root,id
+postype = left
+pos = ifelse(root,teamside = 1,33+var(7),243-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -7
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.5*fvar(7),0.5
+
+[State 1000, 6]
+type = modifyexplod
+trigger1 = root,fvar(33) >= 1.5
+id = 781+root,id
+scale = 0.5*fvar(7),0.5
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+ignorehitpause = 1
+
+[State 1000, 6]
+type = modifyexplod
+trigger1 = root,fvar(33) < 1.5
+id = 781+root,id
+scale = 0,0
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+ignorehitpause = 1
+
+[State 1000, 6]
+type = explod
+trigger1 = numexplod(783+root,id) = 0
+anim = 783
+id = 783+root,id
+postype = left
+pos = ifelse(root,teamside = 1,33+var(7),243-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -6
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.5*fvar(7),0.5
+
+[State 1000, 6]
+type = modifyexplod
+trigger1 = roundstate != 2
+trigger2 = root,var(38) && root,movetype = H
+id = 783+root,id
+scale = 0.5*fvar(7),0.5
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+ignorehitpause = 1
+
+[State 1000, 6]
+type = modifyexplod
+trigger1 = roundstate = 2
+trigger1 = !root,var(38) || root,movetype != H && root,statetype != L && root,anim != 5300
+id = 783+root,id
+scale = 0,0
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+ignorehitpause = 1
+;-----------------------------------
+[Statedef 4500]
+type = A
+movetype = I
+physics = N
+anim = 4500 + root,var(16)
+ctrl = 0
+velset = 0,0
+
+;=============================================================================
+
+[State 4500];BURSTゲージ位置調整(横)
+type = varset
+trigger1 = 1
+var(7) = 0;(-30～130)
+
+[State 4500];BURSTゲージ位置調整(縦)
+type = varset
+trigger1 = 1
+var(8) = 0;(-30～196)
+
+;=========================================================================
+
+[State 4500]
+type = AssertSpecial
+trigger1 = 1
+flag = noshadow
+flag2 = invisible
+persistent = 1
+ignorehitpause = 1
+
+[State 4500]
+type = varset
+trigger1 = 1
+fvar(7) = 1
+
+[State 4500]
+type = varset
+trigger1 = root,numpartner
+trigger1 = partner,numhelper(780+partner,id)
+fvar(7) = 0.5
+
+[State 4500]
+type = varset
+trigger1 = 1
+var(9) = 0
+
+[State 4500]
+type = varset
+trigger1 = root,numpartner
+trigger1 = root,id < partner,id
+trigger1 = partner,numhelper(780+partner,id)
+var(9) = ifelse(root,teamside = 1,-2,23)
+
+[State 4500]
+type = varset
+trigger1 = root,numpartner
+trigger1 = root,id > partner,id
+trigger1 = partner,numhelper(780+partner,id)
+var(9) = ifelse(root,teamside = 1,24,-3)
+
+[State 4500, 6]
+type = RemoveExplod
+trigger1 = root,var(16) <= 5
+ID = 4507+root,id
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4500+root,id) = 0
+trigger1 = root,var(16) = 0
+anim = 4500 
+id = 4500+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 6]
+type = RemoveExplod
+trigger1 = root,var(16) != 0
+ID = 4500+root,id
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4501+root,id) = 0
+trigger1 = root,var(16) = 1
+anim = 4501 
+id = 4501+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 6]
+type = RemoveExplod
+trigger1 = root,var(16) != 1
+ID = 4501+root,id
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4502+root,id) = 0
+trigger1 = root,var(16) = 2
+anim = 4502 
+id = 4502+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 6]
+type = RemoveExplod
+trigger1 = root,var(16) != 2
+ID = 4502+root,id
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4503+root,id) = 0
+trigger1 = root,var(16) = 3
+anim = 4503 
+id = 4503+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 6]
+type = RemoveExplod
+trigger1 = root,var(16) != 3
+ID = 4503+root,id
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4504+root,id) = 0
+trigger1 = root,var(16) = 4
+anim = 4504 
+id = 4504+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 6]
+type = RemoveExplod
+trigger1 = root,var(16) != 4
+ID = 4504+root,id
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4505+root,id) = 0
+trigger1 = root,var(16) = 5
+anim = 4505
+id = 4505+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 6]
+type = RemoveExplod
+trigger1 = root,var(16) != 5
+ID = 4505+root,id
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4507+root,id) = 0
+trigger1 = root,var(16) >= 6
+anim = 4506
+id = 4506+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -2
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4500+root,id) = 0
+trigger1 = root,var(16) >= 6
+anim = 4500
+id = 4500+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -8
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 6]
+type = explod
+trigger1 = numexplod(4507+root,id) = 0
+trigger1 = root,var(16) >= 6
+anim = 4507
+id = 4507+root,id
+postype = left
+pos = ifelse(root,teamside = 1,3+var(7),293-var(7))+var(9),37+var(8)
+facing = ifelse(root,teamside = 1,1,1)
+sprpriority = -9
+supermove = 1
+supermovetime = 99999
+pausemovetime = 99999
+removetime = -1
+bindtime = -1
+ownpal = 1
+ignorehitpause = 1
+scale = 0.25*fvar(7),0.25
+
+[State 4500, 1]
+type = assertspecial
+trigger1 = numexplod(4506+root,id) = 1
+trigger2 = numexplod(4507+root,id) = 1
+flag = Nomusic
+ignorehitpause = 1
+
+[State 4500, 6]
+type = PlaySnd
+trigger1 = numexplod(4506+root,id) = 1
+value = 4000, 8
+channel = 1
+ignorehitpause = 1
+loop = 1
+
+[State 4500, 6]
+type = StopSnd
+trigger1 = numexplod(4507+root,id) = 0
+trigger1 = RoundState = 2
+channel = 1
+;=========================================================================
+アーマーヘルパー
+[Statedef 9000]; アーマー判定ヘルパー
+type = A
+movetype = I
+physics = N
+
+[State 9000, 0]; 不具合対策
+type = ChangeState
+trigger1 = !IsHelper
+value = 0
+ctrl = 1
+
+[State 9000, 0]; アーマー化した瞬間に重複被弾しないための無敵
+type = NotHitBy
+trigger1 = Time = 0
+value = SCA
+time = 1
+
+[State 9000, 0]; 投げ無敵
+type = NotHitBy
+trigger1 = Time >= 1
+value = ,AT
+time = 2
+
+[State 9000, 0]; 透明＋影消し
+type = AssertSpecial
+trigger1 = 1
+flag = Invisible
+flag2 = NoShadow
+
+[State 9000, 0]; 本体に追従
+type = BindToParent
+trigger1 = 1
+time = 1
+facing = 1
+pos = 0,0
+
+[State 9000, 0]; 判定を揃える
+type = ChangeAnim
+trigger1 = SelfAnimExist(Parent,Anim)
+value = Parent,Anim
+elem = Parent,AnimElemNo(0)
+
+[State 9000, 0]; 打撃／飛び道具を受けたらステートを繰り返す
+type = HitOverRide
+trigger1 = IsHelper(9000)
+attr = SCA,AA,AP
+stateno = 9000
+
+[State 9000, 0]; 本体がアーマーパートを過ぎたら消滅
+type = DestroySelf
+trigger1 = Parent,StateNo != 3100 ;ナインライブズ
+trigger2 = Parent,StateNo = 3100 &&  Parent,AnimElem >= 30
+;============================================================
+[StateDef 60000]
+anim=9999;9999版に指定しているが攻撃判定、当たり判定の無いアニメなら何でもよい
+ctrl=0
+
+[State 60000 透明化]
+type = assertspecial
+trigger1 = 1
+flag = invisible
+flag2 = noshadow
+
+[State 60000 無敵化]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+;============================================================
+[State 60000,Cmd];無限の剣製
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "ubw";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 4000;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];鶴翼3連
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "kakuyoku";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 3400;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];ナインライブズ
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "Nine-Lives Blade Works";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 3100;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];カリバーン
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "Caliburn";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 3000;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];空中射撃下°
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "shoot high";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 1600;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];空中射撃横
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "shoot low";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 1500;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];強対空
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "cross upper high";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 1250;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];弱対空
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "cross upper low";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 1200;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];強射撃
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "shoot high";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 1100;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+[State 60000,Cmd];通常射撃
+type = VarSet
+trigger1 = !Var(0);コマンド入力が格納されていない時
+trigger1 = Root,Command = "shoot low";先行入力に対応したい技のコマンド名を" "内に記述する
+var(0) = 1000;先行入力に対応したい技のステートナンバーを入れてあるが技毎に個別の数値を割り振れば別に何でもよい。今回は対応技のステートナンバーを入れていく
+
+
+[State 60000, ガーキャン1]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "holdfwd"
+var(0) = 701
+
+[State 60000, ガーキャン2]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "fd"
+var(0) = 702
+
+[State 60000, 金バースト]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "burst"
+var(0) = 750
+
+[State 60000, 前転]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "zenten"
+var(0) = 107
+
+[State 60000, バク転]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "bakuten"
+var(0) = 108
+
+[State 60000, Bフィールド]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "b" &command = "a"
+var(0) = 2150
+
+[State 60000, バックステップ]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "BB"
+var(0) = 105
+
+[State 60000, 後ろ投げ]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "B_b"
+var(0) = 850
+
+[State 60000, アッパー]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "DF_x"
+var(0) = 405
+
+[State 60000, 前キック]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "F_y"
+var(0) = 215
+
+[State 60000, 前パンチ]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "F_x"
+var(0) = 205
+
+[State 60000, 前強斬り]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "F_b"
+var(0) = 245
+
+[State 60000, 前弱斬り]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "F_a"
+var(0) = 235
+
+[State 60000, 立ちパンチ]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "x"
+var(0) = 200
+
+[State 60000, 立ちキック]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "y"
+var(0) = 210
+
+[State 60000, 立ち斬り]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "a"
+var(0) = 230
+
+[State 60000, 立ち強斬り]
+type = varset
+trigger1 = !Var(0)
+trigger1 = Root,Command  = "b"
+var(0) = 240
+;================[受付時間設定];コマンド入力受付時間を設定します
+[State 60000,超必殺技入力受付]
+type = VarSet
+triggerall = !Var(1);入力受付時間がセットされていない時
+trigger1 = Root,Command = "ubw";↑で記述したコマンドを同じ様に" "内へ置く
+trigger2 = Root,Command = "kakuyoku"
+trigger3 = Root,Command = "Nine-Lives Blade Works"
+trigger4 = Root,Command = "Caliburn"
+var(1) = 15;超必殺技の入力受付時間をセット。Var(1)の値を変えると入力受付時間を調整できる
+
+[State 60000,必殺技入力受付]
+type = VarSet
+triggerall = !Var(1);入力受付時間がセットされていない時
+trigger1 = Root,Command = "shoot high"
+trigger2 = Root,Command = "shoot low"
+trigger3 = Root,Command = "cross upper high"
+trigger4 = Root,Command = "cross upper low"
+trigger5 = Root,Command = "shoot high"
+trigger6 = Root,Command = "sliding"
+trigger7 = Root,Command = "shoot low"
+trigger8 = Root,Command = "3_atack_1"
+var(1) = 5;こちらは通常必殺技の入力受付時間をセット。
+;この様に記述を分けると技毎に個別の受付時間を設定できる。
+
+[State 60000,ガーキャン入力受付]
+type = VarSet
+triggerall = !Var(1);入力受付時間がセットされていない時
+trigger1 = Root,Command = "holdfwd"
+trigger2 = Root,Command = "fd"
+var(1) = 6;こちらはガーキャンの入力受付時間をセット
+
+[State 60000,金バースト入力受付]
+type = VarSet
+triggerall = !Var(1);入力受付時間がセットされていない時
+trigger1 = Root,Command = "burst"
+var(1) = 4;こちらは金バーストの入力受付時間をセット
+
+[State 60000,特殊動作入力受付]
+type = VarSet
+triggerall = !Var(1);入力受付時間がセットされていない時
+trigger1 = Root,Command = "zenten"
+trigger2 = Root,Command = "bakuten"
+trigger3 = Root,Command = "b" &command = "a"
+trigger4 = Root,Command = "F_a"
+trigger5 = Root,Command = "BB"
+var(1) = 5;こちらは特殊動作の入力受付時間をセット
+
+[State 60000,投げ入力受付]
+type = VarSet
+triggerall = !Var(1);入力受付時間がセットされていない時
+trigger1 = Root,Command = "B_b"
+var(1) = 5;こちらは投げの入力受付時間をセット
+
+[State 60000,通常技入力受付]
+type = VarSet
+triggerall = !Var(1);入力受付時間がセットされていない時
+trigger1 = Root,Command = "F_y"
+trigger2 = Root,Command = "F_x"
+trigger3 = Root,Command = "F_b"
+trigger4 = Root,Command = "F_a"
+trigger5 = Root,Command = "x"
+trigger6 = Root,Command = "y"
+trigger7 = Root,command = "a"
+trigger8 = Root,command = "b"
+trigger9 = Root,command = "DF_x"
+var(1) = 5;こちらは通常技の入力受付時間をセット
+
+;================[受付時間];コマンド入力受付時間を設定します
+[State 60000,入力受付時間減算];セットされた受付時間を減算する
+type = VarAdd
+trigger1 = var(1) > 0
+var(1) = -1
+
+[State 60000,入力受付時間リセット];負数にならないようにリセット
+type = Varset
+trigger1 = var(1) < 0
+var(1) = 0
+
+[State 60000,入力受付リセット];受付時間リセットと同時に入力受付リセット
+type = Varset
+trigger1 = var(1) = 0
+var(0) = 0
+
+;============================================================

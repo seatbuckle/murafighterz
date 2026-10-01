@@ -1,0 +1,1351 @@
+;物理的ダイレクトアタック
+[StateDef 3000]
+Type = S
+MoveType = A
+Physics = S
+Anim = 3000
+Ctrl = 0
+VelSet = 0,0
+SprPriority = 5
+PowerAdd = -1000
+
+[State 3000, SuperPause]
+Type = SuperPause
+Trigger1 = AnimElem = 1
+Time = 65
+MoveTime = 65
+Anim = -1
+Sound = s1000,0
+Darken = 1
+P2DefMul = 1
+
+[State 3000, Explod];超必殺発動
+Type = Explod
+Trigger1 = AnimElem = 1
+ID = 10000
+Anim = 10000
+Pos = Floor(0 * Const(Size.XScale)),Floor(-72 * Const(Size.YScale))
+PosType = P1
+Scale = 0.75,0.75
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 56
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3000, Explod]
+Type = Explod
+Trigger1 = AnimElem = 1
+Trigger1 = Facing = -1
+ID = 20000
+Anim = 20000
+Pos = 0,35
+PosType = Left
+Scale = 0.5,0.5
+SprPriority = 7777
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 65
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3000, Explod]
+Type = Explod
+Trigger1 = AnimElem = 1
+Trigger1 = Facing = 1
+ID = 20001
+Anim = 20001
+Pos = 0,35
+PosType = Left
+Scale = 0.5,0.5
+SprPriority = 7777
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 65
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3000, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 3001
+
+
+[StateDef 3001]
+Type = S
+MoveType = A
+Physics = S
+VelSet = 0,0
+Ctrl = 0
+Anim = 3001
+SprPriority = 5
+
+[State 3001, PlayerPush]
+Type = PlayerPush
+Trigger1 = 1
+Value = 0
+
+[State 3001, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0,1
+
+[State 3001, PosSet]
+Type = PosSet
+Trigger1 = Time = 0
+X = (-480 * Facing)
+Y = 0
+
+[State 3001, Helper]
+Type = Helper
+Trigger1 = Time = 1
+HelperType = Player
+Name = "Attack Area"
+ID = 3005
+StateNo = 3005
+Pos = 0,0
+PosType = P1
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+
+[State 3001, Explod]
+Type = Explod
+Trigger1 = AnimElem = 1
+ID = 8000
+Anim = 8000
+Pos = Floor(150 * Const(Size.XScale)),Floor(-70 * Const(Size.YScale))
+PosType = P1
+Scale = 0.75,0.75
+SprPriority = 4
+OwnPal = 1
+OnTop = 0
+BindTime = -1
+RemoveTime = 999
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3001, VelSet]
+Type = VelSet
+Trigger1 = 1
+X = 16
+
+[State 3001, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,6
+AbsPan = 0
+
+[State 3001, ChangeState]
+Type = ChangeState
+Trigger1 = Time >= 200
+Trigger2 = FrontEdgeDist <= -450
+Value = 3002
+
+
+[StateDef 3002]
+Type = S
+MoveType = A
+Physics = S
+VelSet = 0,0
+Ctrl = 0
+Anim = 3002
+
+[State 3002, RemoveExplod]
+Type = RemoveExplod
+Trigger1 = 1
+ID = 8000
+
+[State 3002, PosSet]
+Type = PosSet
+Trigger1 = AnimElemTime(2) < -1
+X = 0
+Y = 0
+
+[State 3002, PosSet]
+Type = PosSet
+Trigger1 = AnimElemTime(2) = -1
+X = 1000*Facing
+
+[State 3002, PlayerPush]
+Type = PlayerPush
+Trigger1 = AnimElemTime(6) <= 1
+Value = 0
+
+[State 3002, VelSet]
+Type = VelSet
+Trigger1 = AnimElem = 2
+Trigger2 = AnimElem = 3
+Trigger3 = AnimElem = 4
+X = -2.5
+
+[State 3002, VelSet]
+Type = VelSet
+Trigger1 = AnimElem = 5
+X = -1
+
+[State 3002, VelSet]
+Type = VelSet
+Trigger1 = AnimElem = 6
+X = 0
+
+[State 3002, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s100,0
+
+[State 3002, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+;Helper
+[Statedef 3005]
+Type = A
+Physics = N
+MoveType = A
+SprPriority = 3
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 3005, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 3005
+Value = 3005
+
+[State 3005, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0,1
+
+[State 3005, PlayerPush]
+Type = PlayerPush
+Trigger1 = 1
+Value = 0
+
+[State 3005, BindToParent]
+Type = BindToParent
+Trigger1 = 1
+Time = 1
+Facing = 1
+Pos = 0,0
+
+[State 3005, HitDef]
+Type = HitDef
+Trigger1 = Root,Var(35) != 1 || Root,Var(35) != 2
+Trigger1 = IsHelper(3005)
+Trigger1 = GameTime%3 = 0
+Attr = S,HA
+Damage = 35,25
+AnimType = Hard
+GetPower = 20,10
+GivePower = 5,0
+HitFlag = MAFD
+GuardFlag = M
+Priority = 7,Hit
+PauseTime = 2,30
+NumHits = 1
+HitSound = s1,2
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -20,-57
+Ground.Type = Low
+Ground.SlideTime = 25
+Ground.HitTime = 25
+Ground.Velocity = -2,-10
+Guard.Velocity = -10.5
+Air.Velocity = -2,-10
+Ground.CornerPush.VelOff = 0
+Fall = 0
+Fall.Recover = 0
+Air.Fall = 1
+ForceStand = 1
+EnvShake.Time = 18
+EnvShake.Freq = 120
+EnvShake.Ampl = 8
+EnvShake.Phase = 0
+
+[State 3005, HitDef]
+Type = HitDef
+Trigger1 = Root,Var(35) = 1
+Trigger1 = IsHelper(3005)
+Trigger1 = GameTime%3 = 0
+Attr = S,HA
+Damage = 50+Random%101,50+Random%51
+AnimType = Hard
+GetPower = 20,10
+GivePower = 5,0
+HitFlag = MAFD
+GuardFlag = M
+Priority = 7,Hit
+PauseTime = 2,30
+NumHits = 1
+HitSound = s1,2
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -20,-57
+Ground.Type = Low
+Ground.SlideTime = 25
+Ground.HitTime = 25
+Ground.Velocity = -2,-10
+Guard.Velocity = -10.5
+Air.Velocity = -2,-10
+Ground.CornerPush.VelOff = 0
+Fall = 0
+Fall.Recover = 0
+Air.Fall = 1
+ForceStand = 1
+EnvShake.Time = 18
+EnvShake.Freq = 120
+EnvShake.Ampl = 8
+EnvShake.Phase = 0
+
+[State 3005, HitDef]
+Type = HitDef
+Trigger1 = Root,Var(35) = 2
+Trigger1 = IsHelper(3005)
+Trigger1 = GameTime%3 = 0
+Attr = S,HA
+Damage = 50+Random%101
+AnimType = Hard
+GetPower = 20,10
+GivePower = 5,0
+HitFlag = MAFD
+GuardFlag = 
+Priority = 7,Hit
+PauseTime = 2,30
+NumHits = 1
+HitSound = s1,2
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -20,-57
+Ground.Type = Low
+Ground.SlideTime = 25
+Ground.HitTime = 25
+Ground.Velocity = -2,-10
+Guard.Velocity = -10.5
+Air.Velocity = -2,-10
+Ground.CornerPush.VelOff = 0
+Fall = 0
+Fall.Recover = 0
+Air.Fall = 1
+P2StateNo = 5100
+P2GetP1State = 0
+Fall.Damage = 5555
+ForceStand = 1
+EnvShake.Time = 18
+EnvShake.Freq = 120
+EnvShake.Ampl = 8
+EnvShake.Phase = 0
+
+[State 3005, HitEffect]
+Type = Explod
+Trigger1 = MoveHit = 1
+ID = 30056010
+Anim = 6010+Random%8
+PosType = P2
+Pos = 10,-58
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+Scale = 1.0,1.0
+
+[State 3005, DestroySelf]
+Type = DestroySelf
+Trigger1 = FrontEdgeDist <= -450
+Trigger2 = Root,StateNo != 3001
+
+;-----------------------------------------------------------------------------
+
+;牛乳激流葬
+[StateDef 3100]
+Type = S
+MoveType = A
+Physics = S
+Anim = 3100
+Ctrl = 0
+VelSet = 0,0
+SprPriority = 5
+PowerAdd = -2000
+
+[State 3100, SuperPause]
+Type = SuperPause
+Trigger1 = AnimElem = 1
+Time = 65
+MoveTime = 65
+Anim = -1
+Sound = s1000,0
+Darken = 1
+P2DefMul = 1
+
+[State 3100, Explod];超必殺発動
+Type = Explod
+Trigger1 = AnimElem = 1
+ID = 10000
+Anim = 10000
+Pos = Floor(0 * Const(Size.XScale)),Floor(-72 * Const(Size.YScale))
+PosType = P1
+Scale = 0.75,0.75
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 56
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3100, Explod]
+Type = Explod
+Trigger1 = AnimElem = 1
+ID = 20010
+Anim = 20010
+Pos = 0,30
+PosType = Left
+Scale = 0.5,0.5
+SprPriority = 0
+OwnPal = 1
+OnTop = 0
+BindTime = -1
+RemoveTime = 65
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3100, Helper]
+Type = Helper
+Trigger1 = Time = 35
+HelperType = Player
+Name = "Milk Tank"
+ID = 8100
+StateNo = 8100
+Pos = 0,0
+PosType = Back
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+
+[State 3100, Helper]
+Type = Helper
+Trigger1 = AnimElem = 2
+HelperType = Player
+Name = "!?!?!?!!?!?!??!!?!?"
+ID = 3101
+StateNo = 3101
+Pos = 0,0
+PosType = P1
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+Size.XScale = 1.0
+Size.YScale = 1.0
+
+[State 3100, Helper]
+Type = Helper
+Trigger1 = AnimElem = 2
+HelperType = Player
+Name = "Milk Stream"
+ID = 8110
+StateNo = 8110
+Pos = 0,0
+PosType = Back
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+
+[State 3100, Helper]
+Type = Helper
+Trigger1 = AnimElem = 2
+HelperType = Player
+Name = "Milk Stream"
+ID = 8111
+StateNo = 8110
+Pos = 64,0
+PosType = Back
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+
+[State 3100, Helper]
+Type = Helper
+Trigger1 = AnimElem = 2
+HelperType = Player
+Name = "Milk Stream"
+ID = 8112
+StateNo = 8110
+Pos = 128,0
+PosType = Back
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+
+[State 3100, Helper]
+Type = Helper
+Trigger1 = AnimElem = 2
+HelperType = Player
+Name = "Milk Stream"
+ID = 8113
+StateNo = 8110
+Pos = 192,0
+PosType = Back
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+
+[State 3100, Helper]
+Type = Helper
+Trigger1 = AnimElem = 2
+HelperType = Player
+Name = "Milk Stream"
+ID = 8114
+StateNo = 8110
+Pos = 256,0
+PosType = Back
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+
+[State 3001, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,15
+
+[State 3100, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+;Helper
+[Statedef 8100]
+Type = S
+Physics = N
+MoveType = I
+SprPriority = -1
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 8100, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 8100
+Value = 8100
+
+[State 8100, VarAdd]
+Type = VarAdd
+Trigger1 = 1
+V = 0
+Value = 1
+IgnoreHitPause = 1
+
+[State 8100, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0,1
+
+[State 8100, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+[State 8100, PosSet]
+Type = PosSet
+Trigger1 = Facing = 1
+Trigger1 = 1
+X = -180
+Y = 0
+
+[State 8100, PosSet]
+Type = PosSet
+Trigger1 = Facing = -1
+Trigger1 = 1
+X = 180
+Y = 0
+
+[State 8100, DestroySelf]
+Type = DestroySelf
+Trigger1 = Var(0) = 210
+
+
+;Helper
+[Statedef 8110]
+Type = S
+Physics = N
+MoveType = I
+SprPriority = 7
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 8110, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 8110
+Value = 8110
+
+[State 8110, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+[State 8110, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0,1
+
+[State 8110, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElemTime(68) < 0
+Trigger1 = GameTime%10 = 0
+Value = s2,8
+Volume = -200
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8110)
+Trigger1 = Facing = 1
+Trigger1 = 1
+X = -160
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8111)
+Trigger1 = Facing = 1
+Trigger1 = 1
+X = -96
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8112)
+Trigger1 = Facing = 1
+Trigger1 = 1
+X = -32
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8113)
+Trigger1 = Facing = 1
+Trigger1 = 1
+X = 32
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8114)
+Trigger1 = Facing = 1
+Trigger1 = 1
+X = 96
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8110)
+Trigger1 = Facing = -1
+Trigger1 = 1
+X = -96
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8111)
+Trigger1 = Facing = -1
+Trigger1 = 1
+X = -32
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8112)
+Trigger1 = Facing = -1
+Trigger1 = 1
+X = 32
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8113)
+Trigger1 = Facing = -1
+Trigger1 = 1
+X = 96
+Y = 0
+
+[State 8110, PosSet]
+Type = PosSet
+Trigger1 = IsHelper(8114)
+Trigger1 = Facing = -1
+Trigger1 = 1
+X = 160
+Y = 0
+
+[State 8110, DestroySelf]
+Type = DestroySelf
+Trigger1 = AnimTime = 0
+
+
+;Helper
+[Statedef 3101]
+Type = A
+Physics = N
+MoveType = A
+SprPriority = 3
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 3101, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 3101
+Value = 3101
+
+[State 3101, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0,1
+
+[State 3101, PlayerPush]
+Type = PlayerPush
+Trigger1 = 1
+Value = 0
+
+[State 3101, HitDef]
+Type = HitDef
+Trigger1 = Root,Var(35) != 1 || Root,Var(35) != 2
+Trigger1 = IsHelper(3101)
+Trigger1 = GameTime%2 = 0
+Attr = S,HA
+Damage = 5,3
+AnimType = Hard
+GetPower = 5,3
+GivePower = 1,0
+HitFlag = MAFD
+GuardFlag = L
+Priority = 7,Hit
+PauseTime = 0,20
+NumHits = 1
+HitSound = -1
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -20,-57
+Ground.Type = Low
+Ground.SlideTime = 25
+Ground.HitTime = 25
+Ground.Velocity = -6,-10
+Guard.Velocity = -5.5
+Air.Velocity = -7,-10
+Ground.CornerPush.VelOff = 0
+Fall = 1
+Fall.Recover = 0
+Air.Fall = 1
+ForceStand = 1
+
+[State 3101, HitDef]
+Type = HitDef
+Trigger1 = Root,Var(35) = 1
+Trigger1 = IsHelper(3101)
+Trigger1 = GameTime%2 = 0
+Attr = S,HA
+Damage = 100+Random%401,100+Random%201
+AnimType = Hard
+GetPower = 5,3
+GivePower = 1,0
+HitFlag = MAFD
+GuardFlag = L
+Priority = 7,Hit
+PauseTime = 0,20
+NumHits = 1
+HitSound = -1
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -20,-57
+Ground.Type = Low
+Ground.SlideTime = 25
+Ground.HitTime = 25
+Ground.Velocity = -6,-10
+Guard.Velocity = -5.5
+Air.Velocity = -7,-10
+Ground.CornerPush.VelOff = 0
+Fall = 1
+Fall.Recover = 0
+Air.Fall = 1
+ForceStand = 1
+
+[State 3101, HitDef]
+Type = HitDef
+Trigger1 = Root,Var(35) = 2
+Trigger1 = IsHelper(3101)
+Trigger1 = 1
+Attr = S,HA
+Damage = 100+Random%901
+AnimType = Hard
+GetPower = 5,3
+GivePower = 1,0
+HitFlag = MAFD
+GuardFlag = 
+Priority = 7,Hit
+PauseTime = 0,20
+NumHits = 1
+HitSound = -1
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -20,-57
+Ground.Type = Low
+Ground.SlideTime = 25
+Ground.HitTime = 25
+Ground.Velocity = -6,-10
+Guard.Velocity = -5.5
+Air.Velocity = -7,-10
+Ground.CornerPush.VelOff = 0
+Fall = 1
+Fall.Recover = 0
+Air.Fall = 1
+ForceStand = 1
+
+[State 3101, HitEffect]
+Type = Explod
+Trigger1 = MoveHit = 1
+ID = 30056010
+Anim = 6010+Random%8
+PosType = P2
+Pos = 0,0
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+Scale = 1.0,1.0
+
+[State 3101, DestroySelf]
+Type = DestroySelf
+Trigger1 = AnimTime = 0
+
+;-----------------------------------------------------------------------------
+
+;ラストターン・スクラップフィスト
+[StateDef 3200]
+Type = S
+MoveType = A
+Physics = S
+Anim = 3200
+Ctrl = 0
+VelSet = 0,0
+SprPriority = 5
+PowerAdd = -3000
+
+[State 3200, SuperPause]
+Type = SuperPause
+Trigger1 = AnimElem = 1
+Time = 70
+MoveTime = 70
+Anim = -1
+Sound = s1000,1
+Darken = 1
+P2DefMul = 1
+
+[State 3200, SuperPause]
+Type = SuperPause
+Trigger1 = AnimElem = 2
+Time = 2177
+MoveTime = 2177
+Anim = -1
+Sound = -1
+Darken = 0
+P2DefMul = 1
+
+[State 3200, Explod];超必殺発動
+Type = Explod
+Trigger1 = AnimElem = 1
+ID = 10010
+Anim = 10010
+Pos = Floor(0 * Const(Size.XScale)),Floor(-72 * Const(Size.YScale))
+PosType = P1
+Scale = 0.75,0.75
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 60
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3200, Explod]
+Type = Explod
+Trigger1 = AnimElem = 1
+ID = 20020
+Anim = 20020
+Pos = 0,30
+PosType = Back
+Scale = 0.5,0.5
+SprPriority = 4
+OwnPal = 1
+OnTop = 0
+BindTime = -1
+RemoveTime = 65
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3200, Explod];黒背景
+Type = Explod
+Trigger1 = AnimElem = 2
+ID = 25001
+Anim = 25001
+Pos = 0,0
+PosType = Back
+Scale = 5.0,5.0
+SprPriority = -1
+OwnPal = 1
+OnTop = 0
+BindTime = -1
+RemoveTime = 2177
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3200, Explod];ジャンク・シンクロン
+Type = Explod
+Trigger1 = Time = 70+390
+ID = 8200
+Anim = 8200
+Pos = Floor(120 * Const(Size.XScale)),Floor(260 * Const(Size.YScale))
+PosType = Left
+Scale = 0.25,0.25
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3200, Explod];スピード・ウォリアー
+Type = Explod
+Trigger1 = Time = 70+990
+ID = 8210
+Anim = 8210
+Pos = Floor(320 * Const(Size.XScale)),Floor(260 * Const(Size.YScale))
+PosType = Left
+Scale = 0.25,0.25
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3200, Explod];ボルト・ヘッジホッグ
+Type = Explod
+Trigger1 = Time = 70+1410
+ID = 8220
+Anim = 8220
+Pos = Floor(520 * Const(Size.XScale)),Floor(260 * Const(Size.YScale))
+PosType = Left
+Scale = 0.25,0.25
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3200, RemoveExplod]
+Type = RemoveExplod
+Trigger1 = Time = 1870
+ID = 8200
+
+[State 3200, RemoveExplod]
+Type = RemoveExplod
+Trigger1 = Time = 1870
+ID = 8210
+
+[State 3200, RemoveExplod]
+Type = RemoveExplod
+Trigger1 = Time = 1870
+ID = 8220
+
+[State 3200, Explod];ジャンク・ウォリアー
+Type = Explod
+Trigger1 = Time = 70+2100
+ID = 8230
+Anim = 8230
+Pos = Floor(320 * Const(Size.XScale)),Floor(300 * Const(Size.YScale))
+PosType = Left
+Scale = 0.45,0.45
+SprPriority = 7
+OwnPal = 1
+OnTop = 0
+BindTime = -1
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3200, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,16
+
+[State 3200, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s200,17
+
+[State 3200, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 3201
+
+
+[StateDef 3201]
+Type = S
+MoveType = A
+Physics = S
+Anim = 3201
+Ctrl = 0
+VelSet = 0,0
+SprPriority = 5
+
+[State 3201, Explod]
+Type = Explod
+Trigger1 = AnimElem = 1
+Trigger1 = Facing = -1
+ID = 20000
+Anim = 20000
+Pos = 0,35
+PosType = Left
+Scale = 0.5,0.5
+SprPriority = 7777
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 65
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3201, Explod]
+Type = Explod
+Trigger1 = AnimElem = 1
+Trigger1 = Facing = 1
+ID = 20001
+Anim = 20001
+Pos = 0,35
+PosType = Left
+Scale = 0.5,0.5
+SprPriority = 7777
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 65
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 3201, RemoveExplod]
+Type = RemoveExplod
+Trigger1 = AnimElem = 2
+ID = 8230
+
+[State 3201, Helper]
+Type = Helper
+Trigger1 = AnimElem = 2
+HelperType = Player
+Name = "Fist"
+ID = 8300
+StateNo = 8300
+Pos = 0,-245
+PosType = P1
+Facing = 1
+SuperMoveTime = 2147483647
+PauseMoveTime = 2147483647
+Size.XScale = 1.0
+Size.YScale = 1.0
+
+[State 3201, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,10
+
+[State 3201, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s200,0
+
+[State 3201, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+;Helper
+[StateDef 8300]
+Type = A
+MoveType = I
+Physics = N
+Ctrl = 0
+VelSet = 0,0
+SprPriority = 2147483647
+
+[State 8300, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 8300
+Value = 8300
+
+[State 8300, ScreenBound]
+Type = ScreenBound
+Trigger1 = IsHelper
+Value = 0
+MoveCamera = 
+
+[State 8300, PosSet]
+Type = PosSet
+Trigger1 = 1
+X = 0
+
+[State 8300, VelSet]
+Type = VelSet
+Trigger1 = 1
+Y = 50
+
+[State 8300, ChangeState]
+Type = ChangeState
+Trigger1 = Pos Y > 0
+Value = 8301
+
+
+[StateDef 8301]
+Type = A
+MoveType = I
+Physics = N
+Ctrl = 0
+VelSet = 0,0
+SprPriority = 2147483647
+
+[State 8301, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 8301
+Value = 8301
+
+[State 8301, ScreenBound]
+Type = ScreenBound
+Trigger1 = IsHelper
+Value = 0
+MoveCamera = 
+
+[State 8301, VelSet]
+Type = VelSet
+Trigger1 = 1
+Y = 0
+
+[State 8301, Explod];黒背景
+Type = Explod
+Trigger1 = AnimElem = 2
+ID = 25000
+Anim = 25000
+Pos = 0,0
+PosType = Back
+Scale = 5.0,5.0
+SprPriority = 2147483645
+OwnPal = 1
+OnTop = 0
+BindTime = -1
+RemoveTime = 150
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 8301, Explod]
+Type = Explod
+Trigger1 = AnimElem = 2
+ID = 8400
+Anim = 8400
+Pos = 0,0
+PosType = Back
+Scale = 1.0,1.0
+SprPriority = 2147483646
+OwnPal = 1
+OnTop = 0
+BindTime = -1
+RemoveTime = 150
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 8301, Explod]
+Type = Explod
+Trigger1 = AnimElem = 2
+ID = 25501
+Anim = 25501
+Pos = 0,0
+PosType = Back
+Scale = 5.0,5.0
+SprPriority = 2147483647
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 205
+PauseMoveTime = 999999
+SuperMoveTime = 999999
+IgnoreHitPause = 1
+
+[State 8301, Projectile]
+Type = Projectile
+Trigger1 = Root,Var(35) != 1 || Root,Var(35) != 2
+Trigger1 = AnimElem = 2
+Attr = S,HA
+Damage = 100+Random%900
+AnimType = Heavy
+GetPower = 0,0
+GivePower = 0,0
+HitFlag = MAFD
+GuardFlag = 
+Priority = 7,Hit
+PauseTime = 0,30
+NumHits = 1
+HitSound = -1
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -10,-25
+Ground.Type = High
+Ground.SlideTime = 20
+Ground.HitTime = 20
+Ground.Velocity = -5,-10.5
+Guard.Velocity = -7.5
+Air.Velocity = -6,-10.5
+AirGuard.Velocity = -7.75,-4.5
+Fall = 1
+Air.Fall = 1
+Fall.Recover = 0
+ProjID = 8301
+PosType = P1
+OffSet = 0,0
+Velocity = 0,0
+ProjAnim = 33333
+ProjScale = 1.0,1.0
+ProjRemove = 0
+ProjRemoveTime = 170
+ProjHits = 114514
+ProjMissTime = 1
+ProjSprPriority = 999
+ProjPriority = 2147483647
+
+[State 8301, Projectile]
+Type = Projectile
+Trigger1 = Root,Var(35) = 1
+Trigger1 = AnimElem = 2
+Attr = S,HA
+Damage = 500+Random%9999501
+AnimType = Heavy
+GetPower = 2,2
+GivePower = -10,-10
+HitFlag = MAFD
+GuardFlag = 
+Priority = 7,Hit
+PauseTime = 0,30
+NumHits = 1
+HitSound = -1
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -10,-25
+Ground.Type = High
+Ground.SlideTime = 20
+Ground.HitTime = 20
+Ground.Velocity = -5,-10.5
+Guard.Velocity = -7.5
+Air.Velocity = -6,-10.5
+AirGuard.Velocity = -7.75,-4.5
+Fall = 1
+Air.Fall = 1
+Fall.Recover = 0
+ProjID = 8301
+PosType = P1
+OffSet = 0,0
+Velocity = 0,0
+ProjAnim = 33333
+ProjScale = 1.0,1.0
+ProjRemove = 0
+ProjRemoveTime = 170
+ProjHits = 114514
+ProjMissTime = 1
+ProjSprPriority = 999
+ProjPriority = 2147483647
+
+[State 8301, Projectile]
+Type = Projectile
+Trigger1 = Root,Var(35) = 2
+Trigger1 = AnimElem = 2
+Attr = S,HA
+Damage = 2147483647
+AnimType = Heavy
+GetPower = 2,2
+GivePower = -10,-10
+HitFlag = MAFD
+GuardFlag = 
+Priority = 7,Hit
+PauseTime = 0,30
+NumHits = 1
+HitSound = -1
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -10,-25
+Ground.Type = High
+Ground.SlideTime = 20
+Ground.HitTime = 20
+Ground.Velocity = -5,-10.5
+Guard.Velocity = -7.5
+Air.Velocity = -6,-10.5
+AirGuard.Velocity = -7.75,-4.5
+Fall = 1
+Air.Fall = 1
+Fall.Recover = 0
+ProjID = 8301
+PosType = P1
+OffSet = 0,0
+Velocity = 0,0
+ProjAnim = 33333
+ProjScale = 1.0,1.0
+ProjRemove = 0
+ProjRemoveTime = 170
+ProjHits = 114514
+ProjMissTime = 1
+ProjSprPriority = 999
+ProjPriority = 2147483647
+
+[State 8301, EnvShake]
+Type = EnvShake
+Trigger1 = AnimElem = 2
+Freq = 100  ;揺れ速度
+Ampl = -20  ;最大振れ幅
+Time = 100  ;影響時間
+
+[State 8301, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s2,9
+
+[State 8301, DestroySelf]
+Type = DestroySelf
+Trigger1 = AnimTime = 0
+
+

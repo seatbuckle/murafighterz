@@ -1,0 +1,982 @@
+;========================================================================
+;【基本設定】
+;========================================================================
+[Data]
+life = 3500
+attack = 100
+defence = 100
+power = 5000
+fall.defence_up = 50
+liedown.time = 0
+airjuggle = 60
+sparkno = -1
+guard.sparkno = -1
+KO.echo = 0
+volume = 255
+
+[Size]
+xscale = 0.25
+yscale = 0.25
+ground.front = 20
+ground.back = 20
+air.front = 20
+air.back = 20
+height = 100
+attack.dist = 0
+proj.attack.dist = 0
+proj.doscale = 0
+head.pos = 0,-90
+mid.pos = 0,-60
+shadowoffset = 0
+
+[Movement]
+airjump.num = 0
+airjump.height = 0
+yaccel = 0
+stand.friction = 0
+crouch.friction = 0
+
+[Velocity]
+walk.fwd = 0
+walk.back = 0
+run.fwd = 0,0
+run.back = 0,0
+jump.neu = 0,0
+jump.fwd = 0
+jump.back = 0
+runjump.fwd = 0,0
+runjump.back = 0,0
+airjump.neu = 0,0
+airjump.fwd = 0,0
+airjump.back = 0,0
+
+;========================================================================
+;========================================================================
+[Statedef -3]
+
+[State 詠唱用var0]
+type = Null
+trigger1 = var(0) := 0	;0で完全詠唱　1で省略
+IgnoreHitPause = 1
+
+[State ライフ回復用var50var51]
+type = Null
+trigger1 = var(50) := 1000
+trigger1 = var(51) := 10
+IgnoreHitPause = 1
+;var(51)フレーム内に合計var(50)以上のダメージでライフ回復
+
+;========================================================================
+;========================================================================
+[Statedef 0]
+type = S
+physics = S
+sprpriority = 0
+
+[State ]
+type = DestroySelf
+trigger1 = Ishelper
+IgnoreHitPause = 1
+
+[State ]
+type = Turn
+trigger1 = P2dist x < 0
+IgnoreHitPause = 1
+
+[State ]
+type = LifeAdd
+trigger1 = (Gethitvar(damage) != 0) && (Gethitvar(damage) < var(50))
+trigger1 = var(52) := var(52)+gethitvar(damage) || 1
+trigger1 = var(53) := 0 || 1
+value = -gethitvar(damage)
+IgnoreHitPause = 1
+
+[State ]
+type = Null
+trigger1 = Gethitvar(damage) >= var(50)
+trigger1 = var(52) := 0 || 1
+trigger1 = var(53) := 0 || 1
+IgnoreHitPause = 1
+
+[State ]
+type = VarAdd
+trigger1 = Gethitvar(damage) = 0
+var(53) = 1
+IgnoreHitPause = 1
+
+[State ]
+type = LifeAdd
+trigger1 = var(52) >= var(50)
+value = var(52)
+IgnoreHitPause = 1
+
+[State ]
+type = Null
+trigger1 = (var(52) >= var(50)) || (var(53) > var(51))
+trigger1 = var(52) := 0 || 1
+trigger1 = var(53) := 0 || 1
+IgnoreHitPause = 1
+
+[State ]
+type = StateTypeSet
+trigger1 = 1
+movetype = I
+IgnoreHitPause = 1
+
+[State ]
+type = SprPriority
+trigger1 = 1
+value = 0
+IgnoreHitPause = 1
+
+[State ]
+type = StopSnd
+trigger1 = Time = 0
+channel = 0
+
+[State ]
+type = ChangeAnim
+trigger1 = (Anim != 0) || !var(3)
+value = 0
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Roundstate = 2) && !var(10) && (Animelemtime(1) >= 60)
+channel = 1
+value = S1,0
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = (Roundstate = 2) && !var(10) && (Animelemtime(1) >= 60)
+ID = 10
+anim = 10
+pos = 25,0
+postype = left
+vel = -0.25,0
+bindtime = 1
+removetime = 140
+removeongethit = 0
+scale = 0.5,0.5
+sprpriority = 1
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Roundstate = 2) && !var(11) && (Animelemtime(1) >= 200)
+channel = 1
+value = S1,1
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = (Roundstate = 2) && !var(11) && (Animelemtime(1) >= 200)
+ID = 11
+anim = 11
+pos = -60,0
+postype = left
+vel = 0.25,0
+bindtime = 1
+removetime = 300
+removeongethit = 0
+scale = 0.5,0.5
+sprpriority = 1
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Roundstate = 2) && !var(12) && (Animelemtime(1) >= 500)
+channel = 1
+value = S1,2
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = (Roundstate = 2) && !var(12) && (Animelemtime(1) >= 500)
+ID = 12
+anim = 12
+pos = 0,25
+postype = left
+vel = 0,-0.125
+bindtime = 1
+removetime = 400
+removeongethit = 0
+scale = 0.5,0.5
+sprpriority = 1
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Roundstate = 2) && !var(13) && (Animelemtime(1) >= 900)
+channel = 1
+value = S1,3
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = (Roundstate = 2) && !var(13) && (Animelemtime(1) >= 900)
+ID = 13
+anim = 13
+pos = 60,0
+postype = left
+vel = -0.25,0
+bindtime = 1
+removetime = 250
+removeongethit = 0
+scale = 0.5,0.5
+sprpriority = 1
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Roundstate = 2) && !var(14) && (Animelemtime(1) >= 1150)
+channel = 1
+value = S1,4
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = (Roundstate = 2) && !var(14) && (Animelemtime(1) >= 1150)
+ID = 14
+anim = 14
+pos = -55,0
+postype = left
+vel = 0.2,0
+bindtime = 1
+removetime = 400
+removeongethit = 0
+scale = 0.5,0.5
+sprpriority = 1
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Roundstate = 2) && !var(15) && (Animelemtime(1) >= 1550)
+channel = 1
+value = S1,5
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = (Roundstate = 2) && !var(15) && (Animelemtime(1) >= 1550)
+ID = 15
+anim = 15
+pos = 0,0
+postype = left
+bindtime = -1
+removetime = 200
+removeongethit = 0
+scale = 0.5,0.5
+sprpriority = 1
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Roundstate = 2) && !var(16) && (Animelemtime(1) >= 1750)
+channel = 1
+value = S1,6
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = (Roundstate = 2) && !var(16) && (Animelemtime(1) >= 1750)
+ID = 16
+anim = 16
+pos = 0,0
+postype = left
+bindtime = -1
+removetime = 275
+removeongethit = 0
+scale = 0.5,0.5
+sprpriority = 1
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Roundstate = 2) && !var(17) && (Animelemtime(1) >= 2025-var(0)*1995)
+channel = 1
+value = S1,7
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = PowerSet
+triggerall = Roundstate = 2
+trigger1 = !var(10) && (Animelemtime(1) >= 60)
+trigger1 = var(4) := 125
+trigger2 = !var(11) && (Animelemtime(1) >= 200)
+trigger2 = var(4) := 250
+trigger3 = !var(12) && (Animelemtime(1) >= 500)
+trigger3 = var(4) := 375
+trigger4 = !var(13) && (Animelemtime(1) >= 900)
+trigger4 = var(4) := 500
+trigger5 = !var(14) && (Animelemtime(1) >= 1150)
+trigger5 = var(4) := 625
+trigger6 = !var(15) && (Animelemtime(1) >= 1550)
+trigger6 = var(4) := 750
+trigger7 = !var(16) && (Animelemtime(1) >= 1750)
+trigger7 = var(4) := 875
+trigger8 = !var(17) && (Animelemtime(1) >= 2025-var(0)*1995)
+trigger8 = var(4) := 1000
+value = ifelse((Power < var(4)),var(4),(power+125))
+IgnoreHitPause = 1
+
+[State ]
+type = Null
+triggerall = Roundstate = 2
+trigger1 = !var(3)
+trigger1 = var(3) := 1
+trigger2 = !var(10) && (Animelemtime(1) >= 60)
+trigger2 = var(10) := 1
+trigger3 = !var(11) && (Animelemtime(1) >= 200)
+trigger3 = var(11) := 1
+trigger4 = !var(12) && (Animelemtime(1) >= 500)
+trigger4 = var(12) := 1
+trigger5 = !var(13) && (Animelemtime(1) >= 900)
+trigger5 = var(13) := 1
+trigger6 = !var(14) && (Animelemtime(1) >= 1150)
+trigger6 = var(14) := 1
+trigger7 = !var(15) && (Animelemtime(1) >= 1550)
+trigger7 = var(15) := 1
+trigger8 = !var(16) && (Animelemtime(1) >= 1750)
+trigger8 = var(16) := 1
+trigger9 = !var(17) && (Animelemtime(1) >= 2025-var(0)*1995)
+trigger9 = var(17) := 1
+IgnoreHitPause = 1
+
+[State ]
+type = ChangeState
+trigger1 = (Roundstate = 2) && (Animelemtime(1) >= 2050-var(0)*1995)
+value = 1
+IgnoreHitPause = 1
+
+[State ]
+type = CtrlSet
+trigger1 = Roundstate > 2
+value = 1
+IgnoreHitPause = 1
+
+;========================================================================
+[Statedef 1]
+type = S
+movetype = A
+physics = S
+sprpriority = 1
+
+[State ]
+type = DestroySelf
+trigger1 = Ishelper
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = 1
+flag = Nobardisplay
+flag2 = NoFG
+IgnoreHitPause = 1
+
+[State ]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+value2 = SCA
+time = -1
+IgnoreHitPause = 1
+
+[State ]
+type = Turn
+trigger1 = (Time = 0) && (P2dist x < 0)
+IgnoreHitPause = 1
+
+[State ]
+type = ChangeAnim
+trigger1 = Time = 0
+value = 0
+IgnoreHitPause = 1
+
+[State ]
+type = SuperPause
+trigger1 = Time = 0
+time = 100
+movetime = 100
+anim = S1
+pos = const(size.mid.pos.x),const(size.mid.pos.y)
+sound = S2,0
+darken = 0
+p2defmul = 1
+poweradd = -1000
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = Time = 0
+ID = 100
+anim = 2
+pos = 0,0
+postype = left
+bindtime = -1
+removetime = -1
+removeongethit = 0
+scale = 0.5,0.5
+sprpriority = 5
+supermovetime = 100
+persistent = 0
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = Time = 0
+ID = 101
+anim = 3
+pos = 0,0
+postype = left
+bindtime = 1
+removetime = -1
+removeongethit = 0
+scale = 0.338,0.338
+sprpriority = -5
+supermovetime = 100
+persistent = 0
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = Time = 100
+value = S3,0
+volume = 255
+IgnoreHitPause = 1
+
+[State ]
+type = Projectile
+trigger1 = Time = 100
+projanim = 4
+projID = 100
+offset = 0,const(size.mid.pos.y)
+postype = p1
+velocity = 25,0
+remvlocity = 0,0
+projremove = 0
+projhitanim = -1
+projsprpriority = 3
+projshadow = -1
+projremovetime = 100
+projhits = 2147483648
+projmisstime = 1
+projedgebound = 9999999
+projheightbound = -9999999,9999999
+projstagebound = 9999999
+attr = S,HP
+hitflag = MAFP
+guardflag = MA
+guard.dist = 2147483648
+animtype = Back
+ground.type = High
+priority = 2147483648,Hit
+damage = 2147483648*ifelse((random < 500),1,-1),2147483648*ifelse((random < 500),1,-1)
+getpower = 0,0
+givepower = 0,0
+sparkno = -1
+hitsound = -1
+guardsound = -1
+pausetime = 0,0
+ground.slidetime = 0
+ground.hittime = 0
+guard.hittime = 0
+guard.ctrltime = 0
+air.hittime = 0
+ground.velocity = 0,0
+air.velocity = 0,0
+yaccel = 1
+ID = 100
+forcestand = 1
+guard.kill = 1
+afterimage.time = -1
+afterimage.framegap = 2
+afterimage.length = 12
+afterimage.palbright = 0,0,0
+afterimage.palcontrast = 128,128,128
+afterimage.paladd = 0,0,0
+afterimage.palmul = 1,1,1
+afterimage.trans = add
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = Time = 100
+ID = 102
+anim = 5
+pos = const(size.mid.pos.x),const(size.mid.pos.y)
+postype = p1
+bindtime = -1
+removetime = 15
+removeongethit = 0
+scale = 1,1
+sprpriority = 2
+shadow = -1
+IgnoreHitPause = 1
+
+[State ]
+type = Helper
+trigger1 = Time = 100
+helpertype = normal
+ID = 100
+stateno = 2
+pos = 0,const(size.mid.pos.y)
+postype = p1
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = Time = 102
+ID = 103
+anim = 6
+pos = const(size.mid.pos.x),const(size.mid.pos.y)
+postype = p1
+bindtime = -1
+removetime = 36
+removeongethit = 0
+scale = 1,1
+sprpriority = 2
+shadow = -1
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = Time = 108
+value = S3,1
+volume = -100
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Time >= 108
+flag = Invisible
+flag2 = NoShadow
+IgnoreHitPause = 1
+
+[State ]
+type = Null
+trigger1 = (Time >= 108) && !Numexplod(103) && !NumprojID(100) && !var(5) && Ifelse((Numenemy = 1),(Enemy(0),alive),((Enemy(0),alive) || (Enemy(1),alive)))
+trigger1 = var(5) := 1
+IgnoreHitPause = 1
+
+[State ]
+type = LifeSet
+trigger1 = (Time >= 108) && !Numexplod(103)
+value = ifelse(var(5),0,1)
+IgnoreHitPause = 1
+
+[State ]
+type = CtrlSet
+trigger1 = (Time >= 108) && Win
+value = 1
+IgnoreHitPause = 1
+
+[State ]
+type = StateTypeSet
+trigger1 = (Time >= 108) && Win
+movetype = I
+IgnoreHitPause = 1
+
+;------------------------------------------------------------------------
+[Statedef 2]
+type = S
+movetype = I
+physics = N
+velset = 25,0
+ctrl = 0
+
+[State ]
+type = ChangeAnim
+trigger1 = Anim != 4
+value = 4
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = 1
+flag = Noshadow
+flag2 = Invisible
+IgnoreHitPause = 1
+
+[State ]
+type = HitOverride
+trigger1 = 1
+attr = SCA,AA,AT,AP
+stateno = stateno
+time = -1
+IgnoreHitPause = 1
+
+[State ]
+type = DestroySelf
+trigger1 = Animelemtime(1) >= 100
+IgnoreHitPause = 1
+
+;========================================================================
+[Statedef 10]
+type = U
+physics = N
+
+[State ]
+type = ChangeState
+trigger1 = 1
+value = 0
+IgnoreHitPause = 1
+
+;------------------------------------------------------------------------
+[Statedef 20]
+type = U
+physics = N
+
+[State ]
+type = ChangeState
+trigger1 = 1
+value = 0
+IgnoreHitPause = 1
+
+;------------------------------------------------------------------------
+[Statedef 40]
+type = U
+physics = N
+
+[State ]
+type = ChangeState
+trigger1 = 1
+value = 0
+IgnoreHitPause = 1
+
+;------------------------------------------------------------------------
+[Statedef 120]
+type = U
+physics = N
+
+[State ]
+type = ChangeState
+trigger1 = 1
+value = 0
+IgnoreHitPause = 1
+
+;========================================================================
+[Statedef 170]
+type = S
+movetype = I
+physics = S
+ctrl = 0
+
+[State ]
+type = DestroySelf
+trigger1 = Ishelper
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Life <= 1
+flag = Invisible
+flag2 = NoShadow
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Time = 0) && (Life > 1)
+channel = 1
+value = S170,0
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Time < 230
+flag = RoundNotOver
+IgnoreHitPause = 1
+
+;------------------------------------------------------------------------
+[Statedef 175]
+type = S
+movetype = I
+physics = S
+ctrl = 0
+
+[State ]
+type = DestroySelf
+trigger1 = Ishelper
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Life <= 1
+flag = Invisible
+flag2 = NoShadow
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Time = 0) && (Life > 1)
+trigger1 = var(6) := ifelse((random < 500),0,1) || 1
+channel = 1
+value = S175,var(6)
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Time < ifelse(var(6),255,190)
+flag = RoundNotOver
+IgnoreHitPause = 1
+
+;------------------------------------------------------------------------
+[Statedef 180]
+type = S
+movetype = I
+physics = S
+ctrl = 0
+
+[State ]
+type = DestroySelf
+trigger1 = Ishelper
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Life <= 1
+flag = Invisible
+flag2 = NoShadow
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = Time = 0
+trigger1 = var(6) := ifelse(((Life <= 1) || (random < 500)),0,1) || 1
+channel = 1
+value = Sifelse((Life <= 1),4,180),var(6)
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Time < ifelse((Life <= 1),140,ifelse(var(6),240,120))
+flag = RoundNotOver
+IgnoreHitPause = 1
+
+;========================================================================
+[Statedef 190]
+type = S
+movetype = I
+physics = S
+
+[State ]
+type = DestroySelf
+trigger1 = Ishelper
+IgnoreHitPause = 1
+
+[State ]
+type = ChangeAnim
+trigger1 = Anim != 0
+value = 0
+IgnoreHitPause = 1
+
+[State ]
+type = VarRandom
+trigger1 = Time = 0
+v = 1
+range = 0,9
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = Time = 0
+channel = 0
+value = S190,var(1)
+volume = 255
+
+[State ]
+type = Null
+triggerall = Time = 0
+trigger1 = var(1) = 0
+trigger1 = var(2) := 300
+trigger2 = var(1) = 1
+trigger2 = var(2) := 150
+trigger3 = var(1) = 2
+trigger3 = var(2) := 125
+trigger4 = (var(1) = 3) || (var(1) = 6)
+trigger4 = var(2) := 135
+trigger5 = (var(1) = 4) || (var(1) = 5)
+trigger5 = var(2) := 100
+trigger6 = (var(1) = 7) || (var(1) = 8)
+trigger6 = var(2) := 400
+trigger7 = var(1) = 9
+trigger7 = var(2) := 450
+
+[State ]
+type = AssertSpecial
+trigger1 = Time < var(2)
+flag = Intro
+
+;==========================================================================
+[Statedef 5050]
+type = U
+movetype = H
+physics = N
+
+[State ]
+type = ChangeState
+trigger1 = 1
+value = ifelse(Alive,0,5150)
+
+;--------------------------------------------------------------------------
+[Statedef 5150]
+type = L
+movetype = H
+physics = N
+
+[State ]
+type = StopSnd
+trigger1 = Time = 0
+channel = 1
+
+[State ]
+type = ChangeAnim
+trigger1 = Time = 0
+value = 0
+IgnoreHitPause = 1
+
+[State ]
+type = Explod
+trigger1 = (Animelemtime(1) = 0) && !var(5)
+ID = 103
+anim = 6
+pos = const(size.mid.pos.x),const(size.mid.pos.y)
+postype = p1
+bindtime = -1
+removetime = 36
+removeongethit = 0
+scale = 1,1
+sprpriority = 2
+shadow = -1
+persistent = 0
+IgnoreHitPause = 1
+
+[State ]
+type = PlaySnd
+trigger1 = (Animelemtime(1) = 6) && !var(5)
+value = S3,1
+volume = -100
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = (Animelemtime(1) >= 6) || var(5)
+flag = Invisible
+flag2 = NoShadow
+IgnoreHitPause = 1
+
+;---------------------------------------------------------------------------
+[Statedef 5900]
+type = S
+
+[State ]
+type = VarRangeSet
+trigger1 = Roundsexisted = 0
+value = 0
+
+[State ]
+type = VarRangeSet
+trigger1 = Roundsexisted = 0
+fvalue = 0
+
+[State ]
+type = AllPalFX
+trigger1 = Time = 0
+time = 3
+add = -256,-256,-256
+IgnoreHitPause = 1
+
+[State ]
+type = ChangeState
+trigger1 = Roundno = 1
+value = 190
+ctrl = 0
+
+;==========================================================================
+;==========================================================================
+[Statedef -2]
+
+[State ]
+type = HitOverride
+trigger1 = 1
+attr = SCA,AA,AP,AT
+stateno = stateno
+time = -1
+IgnoreHitPause = 1
+
+[State ]
+type = BGPalFX
+trigger1 = 1
+time = -1
+add = 150,150,150
+IgnoreHitPause = 1
+
+[State ]
+type = HitAdd
+trigger1 = 1
+value = -9999999
+IgnoreHitPause = 1
+
+[State ]
+type = CtrlSet
+trigger1 = 1
+value = 0
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = 1
+flag = NoStandGuard
+flag2 = NoCrouchGuard
+flag3 = NoAirGuard
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = 1
+flag = NoWalk
+flag2 = NoAutoTurn
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Roundstate != 2
+flag = Nobardisplay
+IgnoreHitPause = 1
+
+[State ]
+type = NotHitBy
+trigger1 = Roundstate != 2
+value = SCA
+value2 = SCA
+time = 1
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = Roundstate < 3
+flag = TimerFreeze
+IgnoreHitPause = 1
+
+[State ]
+type = AssertSpecial
+trigger1 = !Alive
+flag = Invisible
+flag2 = NoShadow
+IgnoreHitPause = 1
+
+[State ]
+type = DisplayToClipboard
+trigger1 = 1
+text = "50:%d\t51:%d\t52:%d\t53:%d\tAlive:%d\t"
+params = var(50),var(51),var(52),var(53),Alive
+IgnoreHitPause = 1

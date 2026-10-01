@@ -1,9 +1,19 @@
 {
-  "playtime": 0,
+  "playtime": 431.81,
   "modes": {
     "training": {
       "playtime": 0,
       "clear": 0
+    },
+    "netplayversus": {
+      "playtime": 431.81,
+      "clear": 2,
+      "clearcount": {
+        "kage 2": [
+          1
+        ],
+        "ivbalrrog": 1
+      }
     }
   }
 }

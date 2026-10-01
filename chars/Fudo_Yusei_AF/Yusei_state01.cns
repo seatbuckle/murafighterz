@@ -1,0 +1,235 @@
+
+;Žã‘ÅŒ‚
+[StateDef 200]
+Type = S
+MoveType = A
+Physics = S
+Anim = 200
+Juggle = 1
+Ctrl = 0
+VelSet = 5,0
+
+[State 200, Projectile]
+Type = Projectile
+Trigger1 = AnimElem = 3
+Attr = S,NA
+Damage = 20,10
+AnimType = Light
+GetPower = 50,10
+GivePower = 30,10
+HitFlag = MAF
+GuardFlag = M
+Priority = 7,Hit
+PauseTime = 0,10
+NumHits = 1
+HitSound = s1,0
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -10,-25
+Ground.Type = High
+Ground.SlideTime = 20
+Ground.HitTime = 20
+Ground.Velocity = -3
+Guard.Velocity = -1.25
+Air.Velocity = -3,-3
+AirGuard.Velocity = -1,-1
+Air.Fall = 1
+Fall.Recover = 0
+ProjID = 205
+PosType = P1
+OffSet = 0,0
+Velocity = 0,0
+ProjAnim = 205
+ProjScale = 0.5,0.5
+ProjRemove = 0
+ProjRemoveTime = 7
+ProjHits = 114514
+ProjMissTime = 114514
+ProjSprPriority = 999
+ProjPriority = 2147483647
+
+[State 200, HitEffect]
+Type = Explod
+Trigger1 = ProjHit = 1
+ID = 2006000
+Anim = 6000+Random%8
+PosType = P2
+Pos = -10,-25
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+
+[State 200, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s0,0
+
+[State 200, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,11
+
+[State 200, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+;’†‘ÅŒ‚
+[StateDef 210]
+Type = S
+MoveType = A
+Physics = S
+Anim = 210
+Juggle = 1
+Ctrl = 0
+VelSet = 5,0
+
+[State 210, Projectile]
+Type = Projectile
+Trigger1 = AnimElem = 3
+Attr = S,NA
+Damage = 40,20
+AnimType = Medium
+GetPower = 50,10
+GivePower = 30,10
+HitFlag = MAF
+GuardFlag = M
+Priority = 7,Hit
+PauseTime = 0,15
+NumHits = 1
+HitSound = s1,1
+GuardSound = s120,0
+SparkNo = -1;s6000+Random%8
+;SparkXY = -10,-25
+Ground.Type = High
+Ground.SlideTime = 25
+Ground.HitTime = 25
+Ground.Velocity = -4
+Guard.Velocity = -1.75
+Air.Velocity = -4,-4
+AirGuard.Velocity = -1.75,-1.75
+Air.Fall = 1
+Fall.Recover = 0
+ProjID = 215
+PosType = P1
+OffSet = 0,0
+Velocity = 0,0
+ProjAnim = 215
+ProjScale = 0.5,0.5
+ProjRemove = 0
+ProjRemoveTime = 12
+ProjHits = 114514
+ProjMissTime = 114514
+ProjSprPriority = 999
+ProjPriority = 2147483647
+
+[State 210, HitEffect]
+Type = Explod
+Trigger1 = ProjHit = 1
+ID = 2006000
+Anim = 6000+Random%8
+PosType = P2
+Pos = -10,-25
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+
+[State 210, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s0,1
+
+[State 210, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,11
+
+[State 210, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+;‹­‘ÅŒ‚
+[StateDef 220]
+Type = S
+MoveType = A
+Physics = S
+Anim = 220
+Juggle = 1
+Ctrl = 0
+VelSet = 5,0
+
+[State 220, Projectile]
+Type = Projectile
+Trigger1 = AnimElem = 3
+Attr = S,NA
+Damage = 60,30
+AnimType = Hard
+GetPower = 50,10
+GivePower = 30,10
+HitFlag = MAF
+GuardFlag = M
+Priority = 7,Hit
+PauseTime = 0,20
+NumHits = 1
+HitSound = s1,2
+GuardSound = s120,0
+SparkNo = -1;s6000+Random%8
+;SparkXY = -10,-25
+Ground.Type = High
+Ground.SlideTime = 30
+Ground.HitTime = 30
+Ground.Velocity = -5
+Guard.Velocity = -2.25
+Air.Velocity = -5,-5
+AirGuard.Velocity = -2.25,-2.25
+Air.Fall = 1
+Fall.Recover = 0
+ProjID = 225
+PosType = P1
+OffSet = 0,0
+Velocity = 0,0
+ProjAnim = 225
+ProjScale = 0.5,0.5
+ProjRemove = 0
+ProjRemoveTime = 15
+ProjHits = 114514
+ProjMissTime = 114514
+ProjSprPriority = 999
+ProjPriority = 2147483647
+
+[State 220, HitEffect]
+Type = Explod
+Trigger1 = ProjHit = 1
+ID = 2006000
+Anim = 6000+Random%8
+PosType = P2
+Pos = -10,-25
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+
+[State 220, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s0,2
+
+[State 220, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,11
+
+[State 220, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+;-----------------------------------------------------------------------
+
+

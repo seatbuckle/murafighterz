@@ -1,0 +1,1151 @@
+[Statedef -2]
+;-----------------------------------------------------------------------------------------------------------
+;　基本オプション
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, リジェネレーション値]
+Type = VarSet
+Trigger1 = 1
+V = 2
+Value = 1   ;ここの値を変更。デフォルトは"1"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 開幕ゲージMAXスイッチ]
+Type = VarSet
+Trigger1 = !IsHelper
+V = 3
+Value = 0  ;ここを変更。デフォルトは"OFF"。 0:OFF 1:ON
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 落下ダメージ耐性スイッチ]
+Type = VarSet
+Trigger1 = !IsHelper
+V = 4
+Value = 1  ;ここを変更。デフォルトは"ON"。 0:OFF 1:ON
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, ライフ管理弱体化スイッチ]
+Type = VarSet
+Trigger1 = !IsHelper
+V = 5
+Value = 0  ;ここを変更。デフォルトは"OFF"。 0:OFF 1:ON
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, ラストターン解禁ライフ条件]
+Type = VarSet
+Trigger1 = 1
+V = 6
+Value = 1200 ;ここの値を変更。デフォルトは"1200(体力MAX状態)"。
+
+IgnoreHitPause = 1
+;-------------------------------------------------------------------------------------------------------
+;　カラー別設定用オプション
+;-------------------------------------------------------------------------------------------------------
+
+[State -2, パワーゲージ自動上昇量]
+Type = Null
+TriggerAll = !IsHelper
+;--------------------------[1P]
+Trigger1 = PalNo = 1
+Trigger1 = Var(1) := 1    ;ここを変更。デフォルトは"1"
+
+;--------------------------[2P]
+Trigger2 = PalNo = 2
+Trigger2 = Var(1) := 1     ;ここを変更。デフォルトは"1"
+
+;--------------------------[3P]
+Trigger3 = PalNo = 3
+Trigger3 = Var(1) := 5     ;ここを変更。デフォルトは"5"
+
+;--------------------------[4P]
+Trigger4 = PalNo = 4
+Trigger4 = Var(1) := 7     ;ここを変更。デフォルトは"5"
+
+;--------------------------[5P]
+Trigger5 = PalNo = 5
+Trigger5 = Var(1) := 10    ;ここを変更。デフォルトは"10"
+
+;--------------------------[6P]
+Trigger6 = PalNo = 6
+Trigger6 = Var(1) := 10    ;ここを変更。デフォルトは"10"
+
+;--------------------------[7P]
+Trigger7 = PalNo = 7
+Trigger7 = Var(1) := 5     ;ここを変更。デフォルトは"5"
+
+;--------------------------[8P]
+Trigger8 = PalNo = 8
+Trigger8 = Var(1) := 10    ;ここを変更。デフォルトは"10"
+
+;--------------------------[9P]
+Trigger9 = PalNo = 9
+Trigger9 = Var(1) := 10    ;ここを変更。デフォルトは"10"
+
+;--------------------------[10P]
+Trigger10 = PalNo = 10
+Trigger10 = Var(1) := 10   ;ここを変更。デフォルトは"10"
+
+;--------------------------[11P]
+Trigger11 = PalNo = 11
+Trigger11 = Var(1) := 10   ;ここを変更。デフォルトは"10"
+
+;--------------------------[12P]
+Trigger12 = PalNo = 12
+Trigger12 = Var(1) := 10   ;ここを変更。デフォルトは"10"
+
+IgnoreHitPause = 1
+
+;---------------------------------------------------------------------------------------
+;　カスタムカラー(6P)用オプション
+;---------------------------------------------------------------------------------------
+
+[State -2, 攻撃力補正]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 6
+FV = 10
+Value = 1.0  ;ここを変更。デフォルトは"1.0"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 防御力補正]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 6
+FV = 11
+Value = 1.0  ;ここを変更。デフォルトは"1.0"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 無敵量設定]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 6
+V = 30
+Value = 1  ;ここを変更。デフォルトは"1"。
+
+;"0" … 無敵なし
+;"1" … 攻撃中無敵
+;"2" … 攻撃中無敵+喰らい中無敵
+;"3" … Anim=0以外無敵
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, ライフ管理スイッチ]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 6
+V = 31
+Value = 1  ;ここを変更。デフォルトは"ON"。 0:OFF 1:ON
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, ダメージフィルター上限値]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 6
+V = 32
+Value = 500  ;ここを変更。デフォルトは"500"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, ダメージフィルター下限値]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 6
+V = 33
+Value = 50   ;ここを変更。デフォルトは"50"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 常時GameTime式ステ抜けスイッチ]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 6
+V = 34
+Value = 1  ;ここを変更。デフォルトは"ON"。 0:OFF 1:ON
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 超必殺技強化Lv設定]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 6
+V = 35
+Value = 0  ;ここを変更。デフォルトは"0"。
+
+;"0" … 基本性能
+
+;"1" … 物理的ダイレクトアタック：50～150ダメージ×攻撃力補正値
+     　 牛乳激流葬：100～500ダメージ×攻撃力補正値
+     　 ラストターン・スクラップフィスト：500～10000000ダメージ×攻撃力補正値
+
+;"2" … 物理的ダイレクトアタック：50～150ダメージ×攻撃力補正値 + 落下即死
+     　 牛乳激流葬：100～1000ダメージ×攻撃力補正値 + 永続タゲTargetLifeAdd削り
+     　 ラストターン・スクラップフィスト：オーバーフロー即死 + 永続タゲTargetLifeAdd即死
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------------------------------
+;　カスタムカラー(7P)用オプション
+;---------------------------------------------------------------------------------------
+
+[State -2, 攻撃力補正]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 7
+FV = 10
+Value = 1.0  ;ここを変更。デフォルトは"1.0"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 防御力補正]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 7
+FV = 11
+Value = 1.0  ;ここを変更。デフォルトは"1.0"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 被弾後無敵時間]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 7
+V = 40
+Value = 60  ;ここを変更。デフォルトは"60"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, ダメージフィルター上限値]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 7
+V = 32
+Value = 500  ;ここを変更。デフォルトは"500"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, ダメージフィルター下限値]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 7
+V = 33
+Value = 50   ;ここを変更。デフォルトは"50"。
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+[State -2, 超必殺技強化レベル設定]
+Type = VarSet
+Trigger1 = !IsHelper
+Trigger1 = PalNo = 7
+V = 35
+Value = 0  ;ここを変更。デフォルトは"0"。
+
+;"0" … 基本性能
+
+;"1" … 物理的ダイレクトアタック：50～150ダメージ×攻撃力補正値
+     　 牛乳激流葬：100～500ダメージ×攻撃力補正値
+     　 ラストターン・スクラップフィスト：オーバーフロー即死
+
+;"2" … 物理的ダイレクトアタック：50～150ダメージ×攻撃力補正値 + 落下即死
+     　 牛乳激流葬：200～1000ダメージ×攻撃力補正値 + 永続タゲTargetLifeAdd削り
+     　 ラストターン・スクラップフィスト：オーバーフロー即死 + 永続タゲTargetLifeAdd即死
+
+IgnoreHitPause = 1
+;---------------------------------------------------------------
+
+
+
+;オプション終了
+;-----------------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, Armor_Install];ハイパーアーマー展開
+Type = Helper
+TriggerAll = PalNo >= 7
+TriggerAll = !IsHelper
+TriggerAll = !NumHelper(9000)
+Trigger1 = 1
+Name = "Hyper_Armor"
+ID = 9000
+StateNo = 9000
+Helpertype = Player
+Size.XScale = 1
+Size.YScale = 1
+Pos = 0,0
+OwnPal = 1
+SuperMoveTime = 99999
+PauseMoveTime = 99999
+
+[State -2, 永続ターゲット]
+Type = Helper
+TriggerAll = Var(35) = 2
+Trigger1 = !IsHelper
+Trigger1 = !NumHelper(100000)
+HelperType = Player
+Name = "Eizoku-Target"
+ID = 100000
+StateNo = 100000
+Pos = 0,0
+PosType = P1
+Facing = 1
+SuperMoveTime = 2147483647
+PauseMoveTime = 2147483647
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, ゲジマシ]
+Type = PowerAdd
+Trigger1 = RoundState > 1
+Trigger1 = GameTime%5 = 0
+Value = var(1)
+IgnoreHitPause = 1
+
+[State -2, PowerAdd]
+Type = PowerAdd
+Trigger1 = RoundState < 2
+Trigger1 = Var(3) = 1
+Value = PowerMAX
+IgnoreHitPause = 1
+
+[State -2, 体力回復]
+Type = LifeAdd
+Trigger1 = RoundState > 1
+Trigger1 = GameTime%10 = 0
+Value = var(2)
+IgnoreHitPause = 1
+
+[State -2, VarSet]
+Type = VarAdd
+TriggerAll = PalNo >= 6 || (PalNo = 6 && Var(31) = 1)
+TriggerAll = !IsHelper
+Trigger1 = RoundState > 1
+Trigger1 = GameTime%10 = 0
+sysvar(3) = -1 * var(2)
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 1
+Value = 1.0
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 2
+Value = 1.0
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 3
+Value = 1.5
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 4
+Value = 2.0
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 5
+Value = 3.0
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 6
+Value = FVar(10)
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 7
+Value = FVar(10)
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 8
+Value = 1.5
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 9
+Value = 2.0
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 10
+Value = 3.0
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 11
+Value = 3.0
+IgnoreHitPause = 1
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = PalNo = 12
+Value = 5.0
+IgnoreHitPause = 1
+
+
+[State -2, Null]
+Type = Null
+TriggerAll = !IsHelper
+Trigger1  = PalNo = 1
+Trigger1  = FVar(10) := 1.0
+Trigger2  = PalNo = 2
+Trigger2  = FVar(10) := 1.0
+Trigger3  = PalNo = 3
+Trigger3  = FVar(10) := 1.5
+Trigger4  = PalNo = 4
+Trigger4  = FVar(10) := 2.0
+Trigger5  = PalNo = 5
+Trigger5  = FVar(10) := 3.0
+Trigger6  = PalNo = 8
+Trigger6  = FVar(10) := 1.5
+Trigger7  = PalNo = 9
+Trigger7  = FVar(10) := 2.0
+Trigger8  = PalNo = 10
+Trigger8  = FVar(10) := 3.0
+Trigger9  = PalNo = 11
+Trigger9  = FVar(10) := 3.0
+Trigger10 = PalNo = 12
+Trigger10 = FVar(10) := 5.0
+IgnoreHitPause = 1
+
+
+[State -2, AttackMulSet]
+Type = AttackMulSet
+Trigger1 = IsHelper
+Value = Root,FVar(10)
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 1
+Value = 1.0
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 2
+Value = 1.0
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 3
+Value = 0.75
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 4
+Value = 0.5
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 5
+Value = 0.25
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 6
+Value = FVar(11)
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 7
+Value = FVar(11)
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 8
+Value = 0.75
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 9
+Value = 0.5
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 10
+Value = 0.5
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 11
+Value = 0.5
+IgnoreHitPause = 1
+
+[State -2, DefenceMulSet]
+Type = DefenceMulSet
+Trigger1 = PalNo = 12
+Value = 0.001
+IgnoreHitPause = 1
+
+
+[State -2, Null]
+Type = Null
+TriggerAll = !IsHelper
+Trigger1  = PalNo = 1
+Trigger1  = FVar(11) := 1.0
+Trigger2  = PalNo = 2
+Trigger2  = FVar(11) := 1.0
+Trigger3  = PalNo = 3
+Trigger3  = FVar(11) := 0.75
+Trigger4  = PalNo = 4
+Trigger4  = FVar(11) := 0.5
+Trigger5  = PalNo = 5
+Trigger5  = FVar(11) := 0.25
+Trigger6  = PalNo = 8
+Trigger6  = FVar(11) := 0.75
+Trigger7  = PalNo = 9
+Trigger7  = FVar(11) := 0.5
+Trigger8  = PalNo = 10
+Trigger8  = FVar(11) := 0.5
+Trigger9  = PalNo = 11
+Trigger9  = FVar(11) := 0.5
+Trigger10 = PalNo = 12
+Trigger10 = FVar(11) := 0.001
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = RoundState != 2
+Flag = NoKO
+IgnoreHitPause = 1
+
+[State -2, LifeSet]
+Type = LifeSet
+Trigger1 = RoundState = [0,1]
+Value = LifeMAX
+IgnoreHitPause = 1
+
+[State -2, NotHitBy]
+Type = NotHitBy
+TriggerAll = Ctrl = 0
+TriggerAll = RoundState = [0,1]
+Trigger1 = StateNo = 0
+Trigger2 = StateNo = 5900
+Value = SCA
+
+[State -2, NotHitBy]
+Type = NotHitBy
+Trigger1 = RoundState = [3,4]
+Trigger1 = Win
+Value = SCA
+Time = -1
+
+[State -2, NotHitBy]
+Type = NotHitBy
+TriggerAll = !IsHelper
+TriggerAll = PalNo >= 7
+Trigger1 = 1
+Value = SCA
+IgnoreHitPause = 1
+
+[State -2, NotHitBy]
+Type = NotHitBy
+TriggerAll = PalNo = 2 || PalNo = 3 || (PalNo = 6 && Var(30) = 1)
+TriggerAll = 1
+Trigger1 = MoveType = A
+Value = SCA
+IgnoreHitPause = 1
+
+[State -2, NotHitBy]
+Type = NotHitBy
+TriggerAll = PalNo = 4 || PalNo = 5 || (PalNo = 6 && Var(30) = 2)
+TriggerAll = 1
+Trigger1 = MoveType = A
+Trigger2 = MoveType = H
+Value = SCA
+IgnoreHitPause = 1
+
+[State -2, NotHitBy]
+Type = NotHitBy
+TriggerAll = PalNo = 6 && Var(30) = 3
+TriggerAll = 1
+Trigger1 = Anim != 0
+Value = SCA
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, Null];被弾後無敵時間
+Type = Null
+TriggerAll = !IsHelper
+TriggerAll = 1
+Trigger1  = PalNo = 8
+Trigger1  = Var(40) := 30
+Trigger2  = PalNo = 9
+Trigger2  = Var(40) := 60
+Trigger3  = PalNo = 10
+Trigger3  = Var(40) := 60
+Trigger4  = PalNo = 11
+Trigger4  = Var(40) := 90
+Trigger5  = PalNo = 12
+Trigger5  = Var(40) := 90
+IgnoreHitPause = 1
+
+;無敵時間カウントダウン
+[State -2, VarAdd]
+Type = VarAdd
+Trigger1 = Helper(9000),StateNo = 9001
+Trigger1 = IsHelper(9000)
+V = 41
+Value = -1
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, Null]
+Type = Null
+TriggerAll = !IsHelper
+Trigger1  = PalNo = 1
+Trigger1  = Var(32) := 2147483647
+Trigger2  = PalNo = 2
+Trigger2  = Var(32) := 2147483647
+Trigger3  = PalNo = 3
+Trigger3  = Var(32) := 2147483647
+Trigger4  = PalNo = 4
+Trigger4  = Var(32) := 500
+Trigger5  = PalNo = 5
+Trigger5  = Var(32) := 300
+Trigger6  = PalNo = 8
+Trigger6  = Var(32) := 700
+Trigger7  = PalNo = 9
+Trigger7  = Var(32) := 500
+Trigger8  = PalNo = 10
+Trigger8  = Var(32) := 500
+Trigger9  = PalNo = 11
+Trigger9  = Var(32) := 300
+Trigger10 = PalNo = 12
+Trigger10 = Var(32) := 150000
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, Null]
+Type = Null
+TriggerAll = !IsHelper
+Trigger1  = PalNo = 1
+Trigger1  = Var(33) := 0
+Trigger2  = PalNo = 2
+Trigger2  = Var(33) := 0
+Trigger3  = PalNo = 3
+Trigger3  = Var(33) := 0
+Trigger4  = PalNo = 4
+Trigger4  = Var(33) := 0
+Trigger5  = PalNo = 5
+Trigger5  = Var(33) := 0
+Trigger6  = PalNo = 8
+Trigger6  = Var(33) := 0
+Trigger7  = PalNo = 9
+Trigger7  = Var(33) := 0
+Trigger8  = PalNo = 10
+Trigger8  = Var(33) := 50
+Trigger9  = PalNo = 11
+Trigger9  = Var(33) := 100
+Trigger10 = PalNo = 12
+Trigger10 = Var(33) := 1000
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, Null]
+Type = Null
+TriggerAll = !IsHelper
+Trigger1  = PalNo = 1
+Trigger1  = Var(35) := 0
+Trigger2  = PalNo = 2
+Trigger2  = Var(35) := 0
+Trigger3  = PalNo = 3
+Trigger3  = Var(35) := 0
+Trigger4  = PalNo = 4
+Trigger4  = Var(35) := 0
+Trigger5  = PalNo = 5
+Trigger5  = Var(35) := 1
+Trigger6  = PalNo = 8
+Trigger6  = Var(35) := 0
+Trigger7  = PalNo = 9
+Trigger7  = Var(35) := 0
+Trigger8  = PalNo = 10
+Trigger8  = Var(35) := 1
+Trigger9  = PalNo = 11
+Trigger9  = Var(35) := 2
+Trigger10 = PalNo = 12
+Trigger10 = Var(35) := 2
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, AssertSpecial];大ダメージ無効
+Type = AssertSpecial
+TriggerAll = Var(5) = 0
+TriggerAll = PalNo = 4 || PalNo = 5 || (PalNo = 6 && Var(31) = 1)
+TriggerAll = GetHitVar(Damage) > Var(32)
+Trigger1 = 1
+Flag = NoKO
+IgnoreHitPause = 1
+
+[State -2, AssertSpecial];大ダメージ無効
+Type = AssertSpecial
+TriggerAll = Var(5) = 0
+TriggerAll = PalNo >= 7
+TriggerAll = Helper(9000),GetHitVar(Damage) > Var(32)
+Trigger1 = 1
+Flag = NoKO
+IgnoreHitPause = 1
+
+[State -2, VarSet];ダメージ条件(アーマー無し)
+Type = VarAdd
+TriggerAll = PalNo = 4 || PalNo = 5 || (PalNo = 6 && Var(31) = 1)
+TriggerAll = !IsHelper
+TriggerAll = GetHitVar(Damage) = [(Var(33)),(Var(32))]
+Trigger1 = StateNo != [120,155]
+sysvar(3) = Floor(GetHitVar(Damage) * FVar(11))
+IgnoreHitPause = 1
+
+[State -2, VarSet];ダメージ条件(アーマー有り)
+Type = VarAdd
+TriggerAll = PalNo >= 7
+TriggerAll = !IsHelper
+TriggerAll = Helper(9000),GetHitVar(Damage) = [(Var(33)),(Var(32))]
+Trigger1 = StateNo != [120,155]
+sysvar(3) = Floor(Helper(9000),GetHitVar(Damage) * FVar(11))
+IgnoreHitPause = 1
+
+[State -2];ライフをセットします
+Type = LifeSet
+TriggerAll = PalNo >= 7 || PalNo = 4 || PalNo = 5 || (PalNo = 6 && Var(31) = 1)
+TriggerAll = !IsHelper
+Trigger1 = 1
+Value = LifeMax - SysVar(3)
+IgnoreHitPause = 1
+
+[State -2, ライフ管理]
+Type = LifeSet
+TriggerAll = PalNo >= 7 || PalNo = 4 || PalNo = 5 || (PalNo = 6 && Var(31) = 1)
+TriggerAll = !Alive
+Trigger1 = !IsHelper
+Trigger1 = 1
+Value = 0
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, SelfState];アーマーヘルパー保護
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(9000) && StateNo != 9001
+Value = 9000
+IgnoreHitPause = 1
+
+[State -2, SelfState];アーマーヘルパー保護
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(9000) && StateNo != 9000
+Value = 9001
+IgnoreHitPause = 1
+
+[State -2, SelfState];永続タゲ
+Type = SelfState
+Trigger1 = IsHelper(100000)
+Value = 100000
+IgnoreHitPause = 1
+
+[State -2, SelfState];イントロ
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(55555)
+Value = 55555
+IgnoreHitPause = 1
+
+[State -2, SelfState];昇竜ホイール
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(1005)
+Value = 1005
+IgnoreHitPause = 1
+
+[State -2, SelfState];ニトロウォーリアー
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(7000)
+Value = 7000
+IgnoreHitPause = 1
+
+[State -2, SelfState];カードシールド
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(7030)
+Value = 7030
+IgnoreHitPause = 1
+
+[State -2, SelfState];牛乳パック
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(7040) && StateNo != 7050
+Value = 7040
+IgnoreHitPause = 1
+
+[State -2, SelfState];ミルク
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(7040) && StateNo != 7040
+Value = 7050
+IgnoreHitPause = 1
+
+[State -2, SelfState];物理的ダイレクトアタック
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(3005)
+Value = 3005
+IgnoreHitPause = 1
+
+[State -2, SelfState];牛乳タンク
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(8100)
+Value = 8100
+IgnoreHitPause = 1
+
+[State -2, SelfState];牛乳
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(8110)
+Trigger2 = IsHelper(8111)
+Trigger3 = IsHelper(8112)
+Trigger4 = IsHelper(8113)
+Trigger5 = IsHelper(8114)
+Value = 8110
+IgnoreHitPause = 1
+
+[State -2, SelfState];牛乳激流葬
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(3101)
+Value = 3101
+IgnoreHitPause = 1
+
+[State -2, SelfState];スクラップフィスト
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(8300) && StateNo != 8301
+Value = 8300
+IgnoreHitPause = 1
+
+[State -2, SelfState];スクラップフィスト
+Type = SelfState
+TriggerAll = IsHelper
+Trigger1 = IsHelper(8300) && StateNo != 8300
+Value = 8301
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+
+[State -2, SelfState]
+Type = SelfState
+TriggerAll = PalNo = 4 || PalNo = 5 || (PalNo = 6 && Var(34) != 0) || PalNo >= 7
+Trigger1 = !IsHelper
+Trigger1 = SysVar(4) != GameTime * 5
+Value = 105
+IgnoreHitPause = 1
+
+;-----------------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------------
+
+[StateDef -3]
+
+;常時ステ抜け用
+[State -3, VarSet]
+Type = VarSet
+Trigger1 = !IsHelper
+sysvar(4) = GameTime * 5
+
+
+[State -3, AI]
+Type = VarSet
+TriggerAll = RoundState = [0,2]
+TriggerAll = Alive || Enemy,Alive != 0
+Trigger1  = Command = "AI00"
+Trigger2  = Command = "AI01"
+Trigger3  = Command = "AI02"
+Trigger4  = Command = "AI03"
+Trigger5  = Command = "AI04"
+Trigger6  = Command = "AI05"
+Trigger7  = Command = "AI06"
+Trigger8  = Command = "AI07"
+Trigger9  = Command = "AI08"
+Trigger10 = Command = "AI09"
+Trigger11 = Command = "AI10"
+Trigger12 = Command = "AI11"
+Trigger13 = Command = "AI12"
+Trigger14 = Command = "AI13"
+Trigger15 = Command = "AI14"
+Trigger16 = Command = "AI15"
+Trigger17 = Command = "AI16"
+Trigger18 = Command = "AI17"
+Trigger19 = Command = "AI18"
+Trigger20 = Command = "AI19"
+Trigger21 = Command = "AI20"
+Trigger22 = Command = "AI21"
+Trigger23 = Command = "AI22"
+Trigger24 = Command = "AI23"
+Trigger25 = Command = "AI24"
+Trigger26 = Command = "AI25"
+Trigger27 = Command = "AI26"
+Trigger28 = Command = "AI27"
+Trigger29 = Command = "AI28"
+Trigger30 = Command = "AI29"
+Trigger31 = Command = "AI30"
+Trigger32 = Command = "AI31"
+Trigger33 = Command = "AI32"
+Trigger34 = Command = "AI33"
+Trigger35 = Command = "AI34"
+Trigger36 = Command = "AI35"
+Trigger37 = Command = "AI36"
+Trigger38 = Command = "AI37"
+Trigger39 = Command = "AI38"
+Trigger40 = Command = "AI39"
+Trigger41 = Command = "AI40"
+Trigger42 = Command = "AI41"
+Trigger43 = Command = "AI42"
+Trigger44 = Command = "AI43"
+Trigger45 = Command = "AI44"
+Trigger46 = Command = "AI45"
+Trigger47 = Command = "AI46"
+Trigger48 = Command = "AI47"
+Trigger49 = Command = "AI48"
+Trigger50 = Command = "AI49"
+Trigger51 = Command = "AI50"
+Trigger52 = 1
+V = 59
+Value = 1    ;ここの値を0にすると、プレイヤー操作が可能となります。
+
+;----------------------------------------------------------------------------------
+;　AI記述
+;----------------------------------------------------------------------------------
+
+[State -1, 236236c]
+Type = ChangeState
+Value = 3200
+TriggerAll = Var(59) >= 1
+TriggerAll = Power >= 3000
+TriggerAll = Life <= var(6)
+TriggerAll = StateType != A
+Trigger1 = Ctrl
+Trigger1 = Random < 400
+Trigger2 = StateNo = 220 && ProjContact = 1,< 8
+Trigger2 = Random < 425
+
+[State -1, 236236b]
+Type = ChangeState
+Value = 3100
+TriggerAll = Var(59) >= 1
+TriggerAll = Power >= 2000
+TriggerAll = StateType != A
+Trigger1 = Ctrl
+Trigger1 = P2BodyDist X >= 100
+Trigger1 = Random < 440
+Trigger2 = StateNo = 220 && ProjContact = 1,< 8
+Trigger2 = Random < 450
+
+[State -1, 236236a]
+Type = ChangeState
+Value = 3000
+TriggerAll = Var(59) >= 1
+TriggerAll = Power >= 1000
+TriggerAll = StateType != A
+Trigger1 = Ctrl
+Trigger1 = P2BodyDist X >= 170
+Trigger1 = Random < 470
+Trigger2 = StateNo = 220 && ProjContact = 1,< 8
+Trigger2 = Random < 460
+
+;-----------------------------------------------------------
+
+[State -1, 236a]
+Type = ChangeState
+Value = 1000
+TriggerAll = Var(59) >= 1
+TriggerAll = P2BodyDist X >= 0 && P2BodyDist X <= 150
+TriggerAll = StateType != A
+Trigger1 = Ctrl
+Trigger1 = Random < 600
+Trigger2 = StateNo = 200 && ProjContact = 1,< 6
+Trigger2 = Random < 605
+Trigger3 = StateNo = 210 && ProjContact = 1,< 6
+Trigger3 = Random < 620
+Trigger4 = StateNo = 220 && ProjContact = 1,< 8
+Trigger4 = Random < 625
+
+[State -1, 236b]
+Type = ChangeState
+Value = 1010
+TriggerAll = Var(59) >= 1
+TriggerAll = StateType != A
+Trigger1 = Ctrl
+Trigger1 = P2BodyDist X >= 100 && P2BodyDist X <= 170
+Trigger1 = Random < 630
+Trigger2 = StateNo = 220 && ProjContact = 1,< 8
+Trigger2 = P2BodyDist X >= 50 && P2BodyDist X <= 170
+Trigger2 = Random < 640
+
+[State -1, 236c]
+Type = ChangeState
+Value = 1020
+TriggerAll = Var(59) >= 1
+TriggerAll = StateType != A
+TriggerAll = EnemyNear,StateType != L
+Trigger1 = Ctrl
+Trigger1 = P2BodyDist X >= 170
+Trigger1 = Random < 635
+Trigger2 = StateNo = 220 && ProjContact = 1,< 8
+Trigger2 = Random < 645
+
+
+[State -1, 214a]
+Type = ChangeState
+Value = 1100
+TriggerAll = Var(59) >= 1
+TriggerAll = P2BodyDist X >= -60 && P2BodyDist X <= 60
+TriggerAll = StateType != A
+TriggerAll = EnemyNear,StateType != L
+Trigger1 = Ctrl
+Trigger1 = Random < 655
+Trigger2 = StateNo = 220 && ProjContact = 1,< 8
+Trigger2 = Random < 660
+
+[State -1, 214b]
+Type = ChangeState
+Value = 1110
+TriggerAll = Var(59) >= 1
+TriggerAll = StateType != A
+Trigger1 = Ctrl
+Trigger1 = P2BodyDist X >= 140
+Trigger1 = Random < 650
+
+[State -1, 214c]
+Type = ChangeState
+Value = 1120
+TriggerAll = Var(59) >= 1
+TriggerAll = PalNo <= 6
+TriggerAll = P2BodyDist X >= 0 && P2BodyDist X <= 100
+TriggerAll = EnemyNear,HitDefAttr = SCA,AA,AT,AP
+TriggerAll = StateType != A
+TriggerAll = EnemyNear,StateType != L
+Trigger1 = Ctrl
+Trigger1 = Random < 670
+
+;-----------------------------------------------------------
+
+[State -1, a]
+Type = ChangeState
+Value = 200
+TriggerAll = Var(59) >= 1
+TriggerAll = StateType != A
+TriggerAll = EnemyNear,StateType != L
+Trigger1 = Ctrl
+Trigger1 = P2BodyDist X >= 0 && P2BodyDist X <= 90
+Trigger1 = Random < 700
+
+[State -1, b]
+Type = ChangeState
+Value = 210
+TriggerAll = Var(59) >= 1
+TriggerAll = P2BodyDist X >= 0 && P2BodyDist X <= 100
+TriggerAll = StateType != A
+TriggerAll = EnemyNear,StateType != L
+Trigger1 = Ctrl
+Trigger1 = Random < 710
+Trigger2 = StateNo = 200 && ProjContact = 1,< 6
+Trigger2 = Random < 715
+
+[State -1, c]
+Type = ChangeState
+Value = 220
+TriggerAll = Var(59) >= 1
+TriggerAll = P2BodyDist X >= 0 && P2BodyDist X <= 110
+TriggerAll = StateType != A
+TriggerAll = EnemyNear,StateType != L
+Trigger1 = Ctrl
+Trigger1 = Random < 720
+Trigger2 = StateNo = 200 && ProjContact = 1,< 6
+Trigger2 = Random < 725
+Trigger3 = StateNo = 210 && ProjContact = 1,< 6
+Trigger3 = Random < 730
+
+;-----------------------------------------------------------
+
+
+[State -1, FF]
+Type = ChangeState
+Value = 100
+TriggerAll = Var(59) >= 1
+TriggerAll = StateType != A
+Trigger1 = Ctrl
+Trigger1 = P2BodyDist X >= 170 && P2MoveType != A
+Trigger1 = Random < 888
+
+[State -1, BB]
+Type = ChangeState
+Value = 105
+TriggerAll = Var(59) >= 1
+TriggerAll = StateType != A
+TriggerAll = EnemyNear,StateType != L
+Trigger1 = Ctrl
+Trigger1 = P2BodyDist X <= 40
+Trigger1 = Random < 100
+
+
+
+
+
+
+

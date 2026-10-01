@@ -1,0 +1,1150 @@
+
+;---------------------------------------------------------------------------
+; ←C（4C）
+[Statedef 4532]
+type = S
+movetype = A
+physics = N
+ctrl = 0
+anim = 4532
+poweradd = 0
+velset = 0,0
+
+[State 4532, 位置補正]
+type = PosAdd
+trigger1 = animelem = 1
+x = 20
+persistent = 0
+
+[State 4532, この石頭！]
+type = PlaySnd
+trigger1 = animelem = 1
+value = S100,119
+
+[State 4532, 素振り音]
+type = PlaySnd
+trigger1 = animelem = 4
+value = S0,0
+
+[State 4532, ←C攻撃 - hitdef定義]
+type = HitDef
+trigger1 = animelem = 5
+attr = S, NA
+damage = ceil(32*fvar(10)),ceil(4*fvar(10))
+nochainid = 961 ;シルカン, GCシルカン
+animtype = hard
+ground.type = low
+guardflag = -1
+hitflag = AF
+priority = 3, Hit
+pausetime = 6,Ceil(ifelse(p2statetype!=A,14,14)*(1+var(19)%10*1.5))+ifelse(var(19)=2,1,0)-(EnemyNear,GetHitVar(fallcount)>0)
+guard.pausetime = 8,16
+sparkno = -1
+guard.sparkno = S10000
+sparkxy = -5,-25
+hitsound = s30, 2
+guardsound = S10,0
+ground.slidetime = 17
+ground.hittime = 17
+guard.velocity = -6
+ground.velocity = -6,-2
+air.velocity = -1,7
+getpower = 35,29
+givepower = 11, 6
+ground.cornerpush.veloff = -6
+air.cornerpush.veloff = 0
+fall = 1
+fall.recover = 0
+yaccel = .52
+p2facing = 1
+
+[State 4532, ヒット確認フラグON]
+type = VarSet
+trigger1 = movehit
+trigger1 = numtarget
+trigger1 = target,gethitvar(damage) > 0
+trigger1 = target,movetype = H
+var(23) = 1
+ignorehitpause = 1
+
+[State 4532, 技補正]
+type = VarSet
+trigger1 = movehit
+trigger1 = numtarget
+trigger1 = target,gethitvar(damage) > 0
+trigger1 = target,movetype = H
+fvar(11) = ifelse(0.45 < fvar(11),0.45,fvar(11))
+ignorehitpause = 1
+
+[State 4534, 終了 - ダウンへ（生きている場合）]
+type = TargetState
+trigger1 = movehit
+trigger1 = p2movetype = H
+value = 4533
+persistent = 0
+ignorehitpause = 1
+
+[State 4532, ヒット時揺れ]
+type = EnvShake
+trigger1 = movehit
+time = 8
+ampl = 4
+freq = 100
+persistent = 0
+ignorehitpause = 1
+
+[State 4532, 打撃ヒットエフェ（強）]
+type = Helper
+trigger1 = movehit
+id = 10011
+stateno = 10011
+postype = p2
+pos = 2,0
+pausemovetime = 999
+supermovetime = 999
+ownpal = 1
+persistent = 0
+ignorehitpause = 1
+
+[State 4532, ←C終了 - ステート移動]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; E石頭 - 成功時2P側動作 - 吹っ飛び
+[Statedef 4533]
+type    = A
+movetype= H
+physics = N
+velset = 0,0
+ctrl = 0
+
+[State 4533, フェール]
+type = DestroySelf
+trigger1 = ishelper
+ignorehitpause = 1
+
+[State 4533, 位置固定]
+type = PosFreeze
+Trigger1 = time <= 13
+ignorehitpause = 1
+
+[State 4533, アニメ指定 1]
+type = ChangeAnim
+Trigger1 = time <= 13
+value = 5010
+elem = 1
+ignorehitpause = 1
+
+[State 4533, アニメ指定 2]
+type = ChangeAnim
+Trigger1 = time = 13
+value = 5035
+persistent = 0
+ignorehitpause = 1
+
+[State 4533, アニメ指定 3]
+type = ChangeAnim
+Trigger1 = anim = 5035
+Trigger1 = animtime = 0
+value = 5050
+persistent = 0
+ignorehitpause = 1
+
+[State 4533, 吹っ飛び前停滞]
+type = VelSet
+trigger1 = time = 13
+x = -8
+y = 12
+ignorehitpause = 1
+
+[State 4533, 終了 - ダウンバウンドへ]
+type = ChangeState
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 0
+value = 4534
+
+;---------------------------------------------------------------------------
+; E石頭 - 成功時2P側動作 - ダウンバウンド
+[Statedef 4534]
+type    = L
+movetype= H
+physics = N
+velset = 0,0
+anim = 5100
+ctrl = 0
+
+[State 4534, 軸合わせ]
+type = PosSet
+trigger1 = time = 0
+y = 0
+
+[State 4534, 無敵]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+ignorehitpause = 1
+
+[State 4534, アニメ変更]
+type = ChangeAnim
+trigger1 = anim = 5100 && animtime = 0
+value = 5050
+ignorehitpause = 1
+
+[State 4534, ステートタイプ変更(L→A)]
+type = StateTypeSet
+trigger1 = anim = 5100 && animtime = 0
+statetype = A
+ignorehitpause = 1
+
+[State 4534, 移動]
+type = VelSet
+trigger1 = anim = 5050
+x = -2
+y = -3
+persistent = 0
+ignorehitpause = 1
+
+[State 4534, 重力]
+type = VelAdd
+trigger1 = anim = 5050
+trigger1 = 1
+y = .60
+ignorehitpause = 1
+
+[State 4534, 終了 - ダウンへ（生きている場合）]
+type = ChangeState
+triggerall = Alive
+trigger1 = anim = 5050
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 10
+trigger2 = time >= 100	;フェール
+value = 4535
+
+[State 4534, 終了 - ダウンへ（死んでいる場合）]
+type = SelfState
+triggerall = !Alive
+trigger1 = anim = 5050
+trigger1 = Vel Y > 0
+trigger1 = Pos Y >= 10
+trigger2 = time >= 100	;フェール
+value = 5100
+
+;---------------------------------------------------------------------------
+; E石頭 - 成功時2P側動作 - ラストダウン
+[Statedef 4535]
+type    = L
+movetype= H
+physics = N
+velset = 0,0
+anim = 5110
+ctrl = 0
+
+[State 4535, 軸合わせ]
+type = PosSet
+trigger1 = time = 0
+y = 0
+
+[State 4535, 終了 - 起き上がりへ]
+type = SelfState
+trigger1 = time >= 33
+value = 5120
+
+;---------------------------------------------------------------------------
+; 矛盾螺旋（発動）
+[Statedef 42100]
+type = S
+physics = N
+ctrl = 0
+anim = 42120
+velset = 0,0
+
+[State 42100, 当て身成功時種別クリア（シールド種別フラグを流用、var節約）]
+type = VarSet
+trigger1 = var(21)
+trigger1 = time = 0
+var(21) = 0
+ignorehitpause = 1
+
+[State 42100, フッ！]
+type = PlaySnd
+trigger1 = animelem = 2
+trigger1 = var(0) = [1,5]
+value = S100, 0
+
+[State 42100, 打撃]
+type = ReversalDef
+trigger1 = !target,ishelper
+trigger1 = 1
+reversal.attr = SCA, NA, SA, HA, NP, SP, HP
+pausetime = 1,1
+sparkno = -1
+guard.sparkno = -1
+time = 1
+numhits = 0
+priority = 2, hit
+p2sprpriority = 2
+p2stateno = 42102
+persistent = 0
+
+[State 42100, 飛び道具]
+type = HitOverRide
+trigger1 = 1
+attr = SA, NP, SP, HP
+stateno = 42101
+
+[State 42100, 当て身成功時種別格納（打撃）]
+type = VarSet
+trigger1 = movecontact
+trigger1 = Enemy,hitdefattr = SCA, NA, SA, HA
+var(21) = 1
+persistent = 0
+ignorehitpause = 1
+
+[State 42100, 当て身成功時種別格納（helper式の飛び道具）]
+type = VarSet
+trigger1 = movecontact
+trigger1 = var(21) != 1
+var(21) = 2
+persistent = 0
+ignorehitpause = 1
+
+[State 42100, 成功SE]
+type = PlaySnd
+trigger1 = movecontact
+value = S5,0
+persistent = 0
+
+[State 42100, 成功エフェ]
+type = Explod
+trigger1 = !NumExplod(13310)
+trigger1 = movecontact
+anim = 13310
+id = 13310
+pos = 14,-75
+postype = p1
+ownpal = 1
+removeongethit = 1
+pausemovetime = 99
+supermovetime = 99
+bindtime = 99
+sprpriority = 3
+persistent = 0
+
+[State 42100, 終了（成功） - ステート移動]
+type = ChangeState
+trigger1 = movecontact
+trigger1 = hitpausetime = 0
+value = 42101
+ignorehitpause = 1
+
+[State 42100, 終了（ミス） - ステート移動]
+type = ChangeState
+trigger1 = !movecontact
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; 矛盾螺旋 - 成功時1P側動作
+[Statedef 42101]
+type = S
+movetype = A
+physics = N
+ctrl = 0
+anim = 42121
+velset = 0,0
+
+[State 42101, ターン]
+type = Turn
+trigger1 = time = 0
+persistent = 0
+ignorehitpause = 1
+
+[State 42101, 阿呆！]
+type = PlaySnd
+trigger1 = time = 0
+trigger1 = var(0) = [1,5]
+value = S100, 89
+
+[State 42101, 間抜け！]
+type = PlaySnd
+trigger1 = time = 0
+trigger1 = var(0) = [6,10]
+value = S100, 90
+
+[State 42101, 成功エフェ(hitoverrideによる考慮)]
+type = Explod
+trigger1 = !NumExplod(13310)
+trigger1 = time = 0
+anim = 13310
+id = 13310
+pos = 14,-75
+postype = p1
+ownpal = 1
+removeongethit = 1
+pausemovetime = 99
+supermovetime = 99
+bindtime = 99
+sprpriority = 3
+persistent = 0
+
+[State 42101, 押さない]
+type = PlayerPush
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 42101, 捕獲]
+type = TargetBind
+trigger1 = animelem = 1
+pos = -10,0
+
+[State 42101, 捕獲]
+type = TargetBind
+trigger1 = animelem = 2
+pos = 49,0
+
+[State 42101, どうみても1フレしか有利じゃないのになぜ追撃できるのか…理論が全部分からん…。とりあえずこれを入れておく。]
+type = CtrlSet
+trigger1 = time = 20
+value = 1
+
+[State 42101, 陰陽螺旋終了 - ステート移動]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; 陰陽螺旋_A - 成功時2P側動作
+[Statedef 42102]
+type = S
+movetype = H
+physics = N
+ctrl = 0
+velset = 0,0
+
+[State 42102, 押さない]
+type = PlayerPush
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 42102, 無敵]
+type = NotHitBy
+trigger1 = time < 10
+value = SCA
+ignorehitpause = 1
+
+[State 42102, フェール]
+type = DestroySelf
+trigger1 = time = 0
+trigger1 = Ishelper
+
+[State 42102, 食らいアニメ1]
+type = ChangeAnim
+trigger1 = time = 0
+trigger1 = anim != 5000
+value = 5000
+
+[State 42102, 食らいアニメ1固定]
+type = ChangeAnim
+trigger1 = anim = 5000 && animtime = 0
+value = 5010
+
+[State 42102, 食らいアニメ1固定]
+type = ChangeAnim
+trigger1 = anim = 5010
+trigger1 = animelemtime(2) >= 0
+value = anim
+elem = 2
+
+[State 42102, スライド]
+type = VelSet
+trigger1 = time = 7
+x = 2
+
+[State 42102, スライド]
+type = VelSet
+trigger1 = time = 15
+x = 1
+
+[State 42102, スライド停止]
+type = VelSet
+trigger1 = time >= 22
+x = 0
+
+[State 42102, 終了]
+type = SelfState
+trigger1 = time >= 33
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; 直死の魔眼 特殊五景崩落
+[Statedef 14700]
+type = S
+movetype = A
+physics = N
+ctrl = 0
+anim = 14700
+velset = 0,0
+poweradd = 0
+
+[State 14700, 近い場合は即発動]
+type = ChangeAnim
+trigger1 = p2bodydist X = [-20,60]
+value = anim
+elem = 5
+persistent = 0
+ignorehitpause = 1
+
+[State 14700, いくぞ・・・！]
+type = PlaySnd
+trigger1 = movehit
+value = S100,76
+persistent = 0
+ignorehitpause = 1
+
+[State 14700, SE]
+type = PlaySnd
+trigger1 = movehit
+value = S4000,1
+persistent = 0
+ignorehitpause = 1
+
+[State 4700, 直死の魔眼 特殊AD(死の線補足) - hitdef定義]
+type = HitDef
+trigger1 = p2stateno != [133,159]
+trigger1 = animelem = 8
+attr = S, HT
+nochainid = 1412 ;BE623
+damage = 0
+numhits = 0
+animtype = hight
+guardflag = -1
+hitflag = MAF
+priority = 3, Hit
+pausetime = 0,0
+sparkno = -1
+guard.sparkno = -1
+sparkxy = -5,-73
+hitsound = -1;s30, 10
+guardsound = -1
+ground.slidetime = 1
+ground.hittime = 1
+guard.velocity = 0
+ground.velocity = 0
+air.velocity = 0,0
+getpower = 0,0
+givepower = 0,0
+ground.cornerpush.veloff = 0
+air.cornerpush.veloff = 0
+guard.kill = 0
+
+[State 4701, ヒット後無敵]
+type = NotHitBy
+trigger1 = movehit
+trigger1 = 1
+value = SCA
+ignorehitpause = 1
+
+[State 4701, 眼光エフェ]
+type = Explod
+trigger1 = !NumExplod(10231)
+trigger1 = movehit
+anim = 10231
+id = 10231
+pos = 35,-35
+postype = p1
+ownpal = 1
+bindtime = 1
+scale = 0.8,1.0
+removeongethit = 1
+sprpriority = 3
+
+[State 4701, 死の線(ヘルパータイプ)]
+type = Helper
+trigger1 = !Numhelper(10024)
+trigger1 = movehit
+id = 10024
+stateno = 10024
+postype = p2
+pos = 0,0
+size.xscale = 1.0
+size.yscale = 1.5
+pausemovetime = 999
+supermovetime = 999
+ownpal = 1
+persistent = 0
+ignorehitpause = 1
+
+[State 4700, BGM停止 & 黒背景]
+type = Helper
+trigger1 = !Numhelper(10027)
+trigger1 = movehit
+id = 10027
+stateno = 10027
+postype = left
+pos = 0,0
+ownpal = 1
+pausemovetime = 999
+supermovetime = 999
+ignorehitpause = 1
+
+[State 4700, 相手引き込み]
+type = TargetState
+trigger1 = movehit
+value = 14707
+persistent = 0
+ignorehitpause = 1
+
+[State 4700, 直死の魔眼 五景崩落終了 - ステート移動]
+type = ChangeState
+trigger1 = movehit
+trigger1 = animtime = 0
+value = 14705
+
+[State 4700, 直死の魔眼 五景崩落終了(失敗) - ステート移動]
+type = ChangeState
+trigger1 = !movehit
+trigger1 = animtime = 0
+value = 14704
+
+;---------------------------------------------------------------------------
+; 直死の魔眼 特殊AD五景崩落 - 補足ミス立ちへ
+[Statedef 14704]
+type = S
+physics = N
+anim = 14704
+ctrl = 0
+velset = 0,0
+sprpriority = 0
+
+[State 14704, 終了 - ステート移動]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; 直死の魔眼 五景崩落 - 死の線補足成功 1P側動作
+[Statedef 14705]
+type = S
+movetype = A
+physics = N
+ctrl = 0
+velset = 0,0
+anim = 14701
+sprpriority = 2
+
+[state 4705,透過]
+type = Trans
+trigger1 = time >= 0
+trans = addalpha
+alpha = 256-(time*4), 256
+
+[state 4705, ライフバー消去]
+type = AssertSpecial
+trigger1 = time >= 0
+flag  = nobardisplay
+ignorehitpause = 1
+
+[State 14700, 見えた・・・！]
+type = PlaySnd
+trigger1 = time = 65
+value = S100,30
+persistent = 0
+ignorehitpause = 1
+
+[State 4700, 超必停止]
+type = SuperPause
+trigger1 = time = 65
+time = 1
+movetime = 1
+anim = -1
+pos = 0,0
+darken = 0
+p2defmul = 1
+ignorehitpause = 1
+
+[State 182, 十字エフェ]
+type = Explod
+trigger1 = time = 65
+anim = 10220
+id = 10220
+pos = -5,-47
+postype = p1
+ownpal = 1
+removeongethit = 1
+supermovetime = 99
+bindtime = 1;99
+sprpriority = 4
+scale = 0.53,0.53
+
+[State 1250, 超必時背景ヘルパー呼び出し (1P)]
+type = null;Helper
+trigger1 = !Numhelper(10210)
+trigger1 = facing = 1
+trigger1 = time = 65
+id = 10210
+stateno = 10210
+postype = left
+pos = 0,-195
+supermovetime = 99
+pausemovetime = 99
+size.xscale = 0.50
+size.yscale = 0.50
+ignorehitpause = 1
+persistent = 0
+
+[State 1250, 超必時背景ヘルパー呼び出し (2P)]
+type = null;Helper
+trigger1 = !Numhelper(10210)
+trigger1 = facing = -1
+trigger1 = time = 65
+id = 10210
+stateno = 10210
+postype = right
+pos = 0,-195
+supermovetime = 99
+pausemovetime = 99
+size.xscale = 0.50
+size.yscale = 0.50
+ignorehitpause = 1
+persistent = 0
+
+[State 10210, SE]
+type = PlaySnd
+trigger1 = time = 65
+value = S30, 3
+
+[state 4800, ポジションロック1]
+type = TargetBind
+trigger1 = time = 65+1
+pos = -140,floor(Pos y)
+persistent = 0
+ignorehitpause = 1
+
+[state 4800, ポジションロック2]
+type = posadd
+trigger1 = time = 65+1
+x = -ceil(70-frontedgedist)
+persistent = 0
+ignorehitpause = 1
+
+[state 4705, SE]
+type = PlaySnd
+trigger1 = time = 110
+value = S20, 4;1
+
+[state 4705, 特殊AD背景]
+type = Explod
+trigger1 = !NumExplod(15000)
+trigger1 = time = 110
+anim = 15000
+id = 15000
+pos = 0,0
+postype = left
+ownpal = 1
+bindtime = 999
+pausemovetime = 999
+supermovetime = 999
+removeongethit = 1
+sprpriority = -1
+persistent = 0
+
+[state 4705, 特殊AD背景]
+type = RemoveExplod
+trigger1 = NumExplod(15000)
+trigger1 = time = 110+20
+ID = 15000
+
+[state 4705, 特殊AD背景(red)]
+type = Explod
+trigger1 = !NumExplod(15001)
+trigger1 = time = 110+20
+anim = 15001
+id = 15001
+pos = 0,0
+postype = left
+ownpal = 1
+bindtime = 999
+pausemovetime = 999
+supermovetime = 999
+removeongethit = 1
+sprpriority = -1
+persistent = 0
+
+[state 4705, 斬撃音]
+type = null;PlaySnd
+trigger1 = time = 110+20
+value = S30, 13
+
+[State 14706, 斬撃音]
+type = PlaySnd
+trigger1 = time = 110+20
+value = S5,1
+
+[State 14706, ヒットSE]
+type = PlaySnd
+trigger1 = time = 110+20
+value = S30,7
+
+[state 4705, 無敵]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+
+[state 4705, 死の線補足成功 1P側動作終了 - ステート移動]
+type = ChangeState
+trigger1 = time >= 110+20+18
+value = 14706
+
+;---------------------------------------------------------------------------
+; 直死の魔眼 五景崩落 - 終了ポーズ
+[Statedef 14706]
+type = S
+movetype = A
+physics = N
+ctrl = 0
+velset = 0,0
+anim = 15010
+sprpriority = 2
+
+[state 14706, 無敵]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+
+[State 14706, 揺れ]
+type = EnvShake
+trigger1 = time = 1
+time = 20
+ampl = 6
+freq = 90
+
+[State 14706, 眼光エフェ]
+type = Explod
+trigger1 = !NumExplod(15040)
+trigger1 = time = 1
+anim = 15040
+id = 15040
+pos = 40,-35
+postype = p1
+ownpal = 1
+bindtime = 999
+pausemovetime = 999
+supermovetime = 999
+scale = 1.0,1.0
+removeongethit = 1
+trans = AddAlpha
+alpha = 220,250
+sprpriority = 3
+persistent = 0
+
+[state 14706, 死の線]
+type = Explod
+trigger1 = !NumExplod(15030)
+trigger1 = time = 1
+anim = 15030
+id = 15030
+pos = 0,0
+postype = left
+ownpal = 1
+bindtime = 999
+pausemovetime = 999
+supermovetime = 999
+removeongethit = 1
+sprpriority = 3
+persistent = 0
+
+[State 14706, 斬撃ヒットエフェ（小）]
+type = null;Helper
+trigger1 = time = 1
+id = 10020
+stateno = 10020
+postype = p2
+pos = 5,-76
+pausemovetime = 999
+supermovetime = 999
+ownpal = 1
+persistent = 0
+ignorehitpause = 1
+
+[State 14706, 死の線切断エフェクト 1]
+type = Explod
+trigger1 = !NumExplod(13220)
+trigger1 = time = 1
+trigger1 = var(0) = [1,3]
+anim = 13220
+id = 13220
+pos = 5,-65
+postype = p2
+facing = -1
+ownpal = 1
+scale = 0.5,0.5
+pausemovetime = 99
+removeongethit = 1
+persistent = 0
+sprpriority = 5
+ignorehitpause = 1
+
+[State 14706, 死の線切断エフェクト(影) 1]
+type = Explod
+trigger1 = !NumExplod(13250)
+trigger1 = time = 1
+trigger1 = var(0) = [1,3]
+anim = 13250
+id = 13250
+pos = 5,-65
+postype = p2
+facing = -1
+ownpal = 1
+scale = 0.5,0.5
+pausemovetime = 99
+removeongethit = 1
+persistent = 0
+sprpriority = 4
+ignorehitpause = 1
+
+[State 14706, 死の線切断エフェクト 2]
+type = Explod
+trigger1 = !NumExplod(13220)
+trigger1 = time = 1
+trigger1 = var(0) = [4,6]
+anim = 13200
+id = 13220
+pos = 5,-65
+postype = p2
+facing = -1
+ownpal = 1
+scale = 0.5,0.5
+pausemovetime = 99
+removeongethit = 1
+persistent = 0
+sprpriority = 5
+ignorehitpause = 1
+
+[State 14706, 死の線切断エフェクト(影) 2]
+type = Explod
+trigger1 = !NumExplod(13250)
+trigger1 = time = 1
+trigger1 = var(0) = [4,6]
+anim = 13230
+id = 13250
+pos = 5,-65
+postype = p2
+facing = -1
+ownpal = 1
+scale = 0.5,0.5
+pausemovetime = 99
+removeongethit = 1
+persistent = 0
+sprpriority = 4
+ignorehitpause = 1
+
+[State 14706, 死の線切断エフェクト 3]
+type = Explod
+trigger1 = !NumExplod(13220)
+trigger1 = time = 1
+trigger1 = var(0) = [7,10]
+anim = 13210
+id = 13220
+pos = 5,-65
+postype = p2
+facing = -1
+ownpal = 1
+scale = 0.5,0.5
+pausemovetime = 99
+removeongethit = 1
+persistent = 0
+sprpriority = 5
+ignorehitpause = 1
+
+[State 14706, 死の線切断エフェクト(影) 3]
+type = Explod
+trigger1 = !NumExplod(13250)
+trigger1 = time = 1
+trigger1 = var(0) = [7,10]
+anim = 13240
+id = 13250
+pos = 5,-65
+postype = p2
+facing = -1
+ownpal = 1
+scale = 0.5,0.5
+pausemovetime = 99
+removeongethit = 1
+persistent = 0
+sprpriority = 4
+ignorehitpause = 1
+
+[state 14706, 死の線補足成功時ダメージ]
+type = TargetLifeAdd
+trigger1 = time = 1
+value = ceil(-400*fvar(10))
+
+[state 14706, 砂煙]
+type = Explod
+trigger1 = time = 1
+anim = 15020
+id = 15020
+pos = -50,-7
+postype = p1
+scale = 1.2, 1.2
+facing = 1
+ownpal = 1
+sprpriority = 3
+ignorehitpause = 1
+
+[state 14706, changeanim]
+type = ChangeAnim
+trigger1 = time = 30
+value = 15011
+
+[state 14706, changeanim]
+type = ChangeAnim
+trigger1 = time = 40
+value = 15012
+
+[state 14706, 振り向き]
+type = Turn
+trigger1 = animtime = 0
+
+[state 14706, 死の線補足成功 1P側動作終了 - ステート移動]
+type = ChangeState
+trigger1 = animtime = 0
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; 直死の魔眼 特殊AD五景崩落 - 補足成功時 2P側動作1
+[Statedef 14707]
+type = S
+movetype = H
+physics = N
+ctrl = 0
+velset = 0,0
+sprpriority = 0
+
+[State 14707, フェール]
+type = SelfState
+trigger1 = EnemyNear,movetype = H
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 14707, フェール]
+type = DestroySelf
+trigger1 = Ishelper
+trigger1 = time = 0
+ignorehitpause = 1
+
+[state 14707,透過]
+type = Trans
+trigger1 = time >= 50 && time <= 195
+trans = addalpha
+alpha = Ceil(256-(time*2.4)), 256
+ignorehitpause = 1
+
+[State 14707, 無敵]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+ignorehitpause = 1
+
+[State 14707, 念のため]
+type = PlayerPush
+trigger1 = 1
+value = 0
+ignorehitpause = 1
+
+[State 14707, シェイク表現]
+type = PosAdd
+trigger1 = time = 258-40
+trigger2 = time = 260-40
+trigger3 = time = 262-40
+trigger4 = time = 264-40
+trigger5 = time = 266-40
+trigger6 = time = 268-40
+trigger7 = time = 270-40
+trigger8 = time = 272-40
+trigger9 = time = 274-40
+trigger10 = time = 276-40
+trigger11 = time = 278-40
+trigger12 = time = 280-40
+x = -3
+ignorehitpause = 1
+
+[State 14707, シェイク表現]
+type = PosAdd
+trigger1 = time = 259-40
+trigger2 = time = 261-40
+trigger3 = time = 263-40
+trigger4 = time = 265-40
+trigger5 = time = 267-40
+trigger6 = time = 269-40
+trigger7 = time = 271-40
+trigger8 = time = 273-40
+trigger9 = time = 275-40
+trigger10 = time = 277-40
+trigger11 = time = 279-40
+x = 3
+ignorehitpause = 1
+
+[State 14707, 暗転するまで現エレメント固定]
+type = ChangeAnim
+trigger1 = time < 113
+value = anim
+elem = animelemno(0-1)
+ignorehitpause = 1
+
+[state 14707, アニメ変更]
+type = ChangeAnim
+trigger1 = time >= 113
+trigger1 = time < 245
+value = 5010
+elem = 1
+ignorehitpause = 1
+
+[state 14707, アニメ変更2]
+type = ChangeAnim
+trigger1 = anim = 5010
+trigger1 = time = 245
+value = 5035
+ignorehitpause = 1
+
+[state 14707, アニメ変更3]
+type = ChangeAnim
+trigger1 = anim = 5035
+trigger1 = animtime = 0
+value = 5050
+ignorehitpause = 1
+
+[State 14707, 吹っ飛び速度]
+type = VelSet
+trigger1 = time = 240
+x = 0
+y = -4
+
+[State 14707, 属性変更]
+type = StateTypeSet
+trigger1 = time = 240
+statetype = A
+
+[State 14707, 重力]
+type = VelAdd
+trigger1 = time >= 241
+y = .43
+
+[State 14707, ダウン演出のためAD/AADのダウンステを使用]
+type = ChangeState
+trigger1 = anim != 5010
+trigger1 = pos Y >= 0
+trigger1 = vel Y > 0
+value = 4710
+

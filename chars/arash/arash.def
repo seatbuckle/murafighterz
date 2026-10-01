@@ -1,0 +1,21 @@
+[Info]
+name = "arash"			;アーラシュ
+displayname = "arash"		;アーラシュ
+versiondate = 25,03,2018	;最終更新日
+mugenversion = 10,06,2004	;No_limit_Winmugen_patch水準
+author = "yanagawa_shuu"	;製作者　柳川 秀
+pal.defaults=1			;1Pカラーまである
+
+[Files]
+cmd = arash.cmd		;コマンドデータ
+cns = arash.cns		;ステータスデータ
+st  = arash.cns		;ステラデータ
+stcommon = common1.cns	;コモンデータ
+sprite = arash.sff	;スプライトデータ
+anim = arash.air	;アニメデータ
+sound = arash.snd	;サウンドデータ
+
+;アーケードモードのOPとEDは未完成
+[Arcade]
+;intro.storyboard = Arcade/oping.def
+;ending.storyboard = Arcade/ending.def

@@ -1,0 +1,658 @@
+; Common state file for M.U.G.E.N beta 2002.04.14
+;
+; System variables usage
+; ----------------------
+; Var name    Type   Purpose
+; --------    ----   -------
+; sysvar(0)   Temp   Set by state 5081 (HITL_SLIDE) to 1 to prevent
+;                    showing ground hit frame in state 5110 (HIT_LIEDOWN).
+;                    Used by guarding states.
+; sysvar(1)   Temp   Used by state 40 (Jump Start) amd 45 (Air Jump Start)
+;                    to keep track of which way to jump.
+;                    Used by state 5100 and 5110 to remember downward
+;                    velocity of player just before hitting the ground.
+;                    Used in state 5080 for storing the anim # to display.
+
+; The following states have special handling within MUGEN, and should be
+; overridden with caution:
+; Jump Start (40): airjumping bookkeeping at !time
+; All guard states (120-155): guard handling throughout state
+; Hit_trip, shaking (5070): defence increases at !time
+; Hit_bounce (5100): defence increases at !time, player becomes
+;                    invincible if within 10 ticks of getting up
+; Hit_liedown (5110): player changes to get-up state (5120) when ready
+; Hit_getup (5120): player's defence is restored to normal at !time
+; Hitfall_recover (5200): player's defence is restored at !time
+; Hitfall_airrecover (5210): player's defence is restored at !time
+
+;---------------------------------------------------------------------------
+; Stand
+[Statedef 0]
+type = S
+physics = S
+sprpriority = -4
+
+[State STOP]
+type = VelSet
+trigger1 = !Time
+x = 0
+y = 0
+
+[State UPDATE]
+type = ChangeAnim
+trigger1 = anim
+value = 0
+
+[State DEAD] ;Are you dead?
+type = ChangeState
+trigger1 = !alive
+value = 5050
+
+;---------------------------------------------------------------------------
+; Stand to Crouch
+[Statedef 10]
+physics = N
+
+[State No]
+type = ChangeState
+trigger1 = 1
+value = 0
+
+;---------------------------------------------------------------------------
+; Crouching
+[Statedef 11]
+physics = N
+
+[State No]
+type = ChangeState
+trigger1 = 1
+value = 0
+
+;---------------------------------------------------------------------------
+; Crouch to Stand
+[Statedef 12]
+physics = N
+
+[State No]
+type = ChangeState
+trigger1 = 1
+value = 0
+
+;---------------------------------------------------------------------------
+; Walk
+[Statedef 20]
+type = S
+physics = S
+anim = 20
+
+[State UPDATE]
+type = ChangeAnim
+trigger1 = anim != 20
+value = 20
+
+[State VELOCITY]
+type = VelSet
+trigger1 = 1
+x = const(velocity.walk.fwd.x)*(command="holdfwd") + const(velocity.walk.back.x)*(command="holdback")
+
+[State -3, Walking Sound]
+type = PlaySnd
+trigger1 = !animelemtime(3)
+value = s20,0
+volume = 128
+
+;---------------------------------------------------------------------------
+; Walk
+[Statedef 21]
+physics = N
+anim = 20
+ctrl = 0
+
+[State VELOCITY]
+type = VelSet
+trigger1 = !time
+x = const(velocity.walk.fwd.x)*(random%2)
+[State VELOCITY]
+type = VelSet
+triggerall = !(vel x)
+trigger1 = !time
+x = const(velocity.walk.back.x)
+
+[State -3, Walking Sound]
+type = PlaySnd
+trigger1 = !animelemtime(3)
+value = s20,0
+volume = 128
+
+[State Done]
+type = ChangeState
+trigger1 = !animtime
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Jump Start
+[Statedef 40]
+physics = N
+
+[State No]
+type = ChangeState
+trigger1 = 1
+value = 0
+
+;---------------------------------------------------------------------------
+; AirJump Start
+[Statedef 45]
+physics = N
+
+[State No]
+type = ChangeState
+trigger1 = 1
+value = 0
+
+;---------------------------------------------------------------------------
+; Jump Up
+[Statedef 50]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Jump Down (empty state for compatibility)
+[Statedef 51]
+physics = N
+
+[State 51, 1]
+type = Null
+trigger1 = 1
+
+;---------------------------------------------------------------------------
+; Jump Land
+[Statedef 52]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; CHARGE ATTACK
+[Statedef 100]
+type = S
+physics = S
+movetype = A
+anim = 100
+SprPriority = -4
+ctrl = 0
+
+[State 100, 1]
+type = VelSet
+trigger1 = 1
+x = const(velocity.walk.fwd.x)
+
+[State 100, 2] ;Prevent run from canceling into walk
+type = AssertSpecial
+trigger1 = 1
+flag = NoWalk
+
+[State 100, 3] ;Prevent from turning
+type = AssertSpecial
+trigger1 = 1
+flag = NoAutoTurn
+
+[State DAMAGE]
+type = HitDef
+trigger1 = !MoveContact
+attr = A,NA
+damage = 50,10
+animtype = Heavy
+hitflag = MAF
+guardflag = MF
+priority = 8,Hit
+pausetime = 0,8
+sparkxy = -10, -76
+hitsound = S2,2
+guardsound = S120,0
+ground.type = High
+ground.slidetime = 4
+ground.hittime  = 20
+ground.velocity = -8
+airguard.velocity = -4.9,-.8
+air.type = High
+air.velocity = -6.4,-3
+air.hittime = 12
+p1SprPriority = -4
+fall = 1
+
+[State -3, Walking Sound]
+type = PlaySnd
+trigger1 = !animelemtime(3)
+value = s20,0
+volume = 128
+
+[State 100, 4]
+type = ChangeState
+trigger1 = time >= 120
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; Roar first
+[Statedef 101]
+type = S
+ctrl = 0
+anim = 195
+velset = 0,0
+movetype = I
+physics = S
+SprPriority = -4
+
+[State Head]
+type = Helper
+triggerall = roundstate > 1
+triggerall = !numhelper(1000)
+trigger1 = !time
+name = "Head"
+ID = 1000
+StateNo = 1000
+ownpal = 1
+pos = const(size.head.pos.x),const(size.head.pos.y)
+
+[State Roar.]
+type = PlaySnd
+trigger1 = !time
+value = s0,3
+channel = 0
+
+[State CHAAAAAAAAAAAARGE]
+type = ChangeState
+trigger1 = time>=50
+value = 100
+
+;---------------------------------------------------------------------------
+; RUN_BACK
+[Statedef 105]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; RUN_BACK2 (land)
+[Statedef 106]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; RUN_UP
+[Statedef 110]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; RUN_DOWN
+[Statedef 115]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; GUARD (start)
+[Statedef 120]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; STAND GUARD (guarding)
+[Statedef 130]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; CROUCH GUARD (guarding)
+[Statedef 131]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; AIR GUARD (guarding)
+[Statedef 132]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; GUARD (end)
+[Statedef 140]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; SGUARDHIT (shaking)
+[Statedef 150]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; SGUARDHIT2 (knocked back)
+[Statedef 151]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; CGUARDHIT (shaking)
+[Statedef 152]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; CGUARDHIT2 (knocked back)
+[Statedef 153]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; AGUARDHIT (shaking)
+[Statedef 154]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+;---------------------------------------------------------------------------
+; AGUARDHIT2 (knocked away)
+[Statedef 155]
+physics = N
+
+[State NO]
+type = ChangeState
+trigger1 = 1
+value = 0
+ctrl = 1
+
+
+;---------------------------------------------------------------------------
+; STUN
+[Statedef 5000]
+type = A
+movetype = H
+physics = N
+anim = 5000
+ctrl = 0
+velset = 0,0
+
+[State Stopthat]
+type = PosSet
+trigger1 = pos y > 0
+y = 0
+
+[State RoarsOfPain]
+type = PlaySnd
+triggerall = alive
+trigger1 = !time
+value = s0,3
+channel = 0
+
+[State -3, FLASHY]
+type = PalFX
+triggerall = alive
+trigger1 = !(time%2)
+time = 1
+add = 256,256,256
+mul = 255,255,255
+
+[State Next]
+type = ChangeState
+trigger1 = time>=40
+trigger2 = !alive
+value = 5050;*!alive+(!!var(0)+(var(0)>=2))*alive
+
+;---------------------------------------------------------------------------
+; HITA_FALL (knocked up, falling)
+;---------------------------------------------------------------------------
+; FALL
+[Statedef 5050]
+type = A
+movetype = H
+physics = N
+ctrl = 0
+velset = 0,0
+
+[State RoarsOfPain]
+type = PlaySnd
+trigger1 = !time
+value = s0,3
+channel = 0
+
+[State Kill]
+type = LifeSet
+trigger1 = -1
+value = 0
+
+[State Next]
+type = ChangeState
+trigger1 = 1
+value = 5051+!(pos y)
+
+
+[Statedef 5051]
+type = A
+movetype = H
+physics = N
+anim = 5000
+ctrl = 0
+velset = 0,0
+
+[State -3, FLASHY]
+type = PalFX
+trigger1 = !(time%2)
+time = 1
+add = 256,256,256
+mul = 255,255,255
+
+[State ISAIDFALL]
+type = Gravity
+trigger1 = pos y
+
+[State DEAD]
+type = ChangeState
+trigger1 = pos y >= 0
+value = 5052
+
+
+[Statedef 5052]
+type = A
+movetype = H
+physics = N
+anim = 5050
+velset = 0,2
+SprPriority = -4
+
+[State Boom]
+type = PlaySnd
+trigger1 = !time
+value = s2,5
+volume = 128
+[State KABOOM]
+type = Explod
+trigger1 = !time
+anim = 7001
+ID = 7001
+pos = 0,-120
+postype = p1
+bindtime = 1
+scale = 1,1
+ownpal = 1
+sprpriority = 4
+
+[State GONE]
+type = ChangeAnim
+trigger1 = time=240
+value = 9741
+[State FALL]
+type = PosSet
+trigger1 = time=240
+y = 0
+[State FALL]
+type = VelSet
+trigger1 = time=240
+y = 0
+
+[State MoreRoarsOfPain]
+type = PlaySnd
+triggerall = time=[240,420]
+trigger1 = !((time-240)%60)
+value = s0,3-!(time-240)-((time-240)/60)
+channel = 0
+
+[State Die]
+type = ChangeState
+trigger1 = time >= 420
+value = 5150
+
+
+;---------------------------------------------------------------------------
+; DEAD
+[Statedef 5150]
+type = L
+movetype = H
+physics = N
+velset = 0,0
+anim = 5150
+SprPriority = -4
+
+[State INCINERATED]
+type = AssertSpecial
+trigger1 = sysvar(1) = 1338
+flag = invisible
+
+[State FALL]
+type = PosSet
+trigger1 = !time
+y = 0
+
+[State NOTOUCHY]
+type = NotHitBy
+trigger1 = 1
+value = SCA
+time = 1
+
+;---------------------------------------------------------------------------
+; Continue?
+[Statedef 5500]
+type = S
+ctrl = 0
+anim = 5300
+velset = 0,0
+
+[State 5500, 1] ;Use continue animation if available
+type = ChangeAnim
+trigger1 = !time
+trigger1 = SelfAnimExist(5500)
+value = 5500
+
+;---------------------------------------------------------------------------
+; Initialize (at the start of the round)
+[Statedef 5900]
+type = S
+poweradd = -power
+
+[State 5900, 1] ;Clear all int variables
+type = VarRangeSet
+trigger1 = !roundsexisted
+value = 0
+
+[State 5900, 2] ;Clear all float variables
+type = VarRangeSet
+trigger1 = !roundsexisted
+fvalue = 0
+
+[State GetP3ID]
+type = VarSet
+triggerall = teammode = simul
+trigger1 = P3name = "Kraidgief"
+var(25) = ID<(partner,ID)
+
+[State THEKID]
+type = VarSet
+triggerall = enemynear,name="IWBTG"
+triggerall = enemynear,authorname="fhqwhgads7"
+trigger1 = !(enemynear,teammode=simul)
+trigger2 = enemynear(enemy,teammode=simul),name="IWBTG"
+trigger2 = enemynear(enemy,teammode=simul),authorname="fhqwhgads7"
+var(50) = 1
+
+[State INTRO] ;Intro
+type = ChangeState
+trigger1 = 1
+value = 190

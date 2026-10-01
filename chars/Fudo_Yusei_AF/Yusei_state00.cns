@@ -1,0 +1,267 @@
+;敗北
+[StateDef 170]
+Type = S
+Ctrl = 0
+Anim = 170
+VelSet = 0,0
+SprPriority = 3
+
+[State 170, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = Time < 101
+Flag = RoundNotOver
+
+[State 170, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s170,0
+
+
+
+
+
+;勝利
+[StateDef 180]
+Type = S
+Ctrl = 0
+Anim = 180
+VelSet = 0,0
+SprPriority = 3
+
+[State 180, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1 && !MatchOver
+Value = s180,0
+
+[State 180, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1 && MatchOver
+Value = s180,1
+
+[State 180, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = Time < 240
+Flag = RoundNotOver
+
+[State 180, ScreenBound]
+Type = ScreenBound
+Trigger1 = Time >= 5
+Value = 0
+MoveCamera = 
+
+[State 180, VelSet]
+Type = VelSet
+Trigger1 = Time >= 5
+X = 15
+
+[State 180, NotHitBy]
+Type = NotHitBy
+Trigger1 = 1
+Value = SCA
+Time = 1
+
+
+
+
+
+;イントロ
+[Statedef 190]
+type = S
+ctrl = 0
+anim = 190
+velset = 0,0
+
+[State 190, AssertSpecial]
+type = AssertSpecial
+trigger1 = 1
+flag = Intro
+
+[State 190, Explod]
+Type = Explod
+Trigger1 = Time = 1
+ID = 30000
+Anim = 30000
+Pos = 0,0
+PosType = P1
+Scale = 0.75,0.75
+SprPriority = 4
+OwnPal = 1
+OnTop = 1
+BindTime = -1
+RemoveTime = 135
+IgnoreHitPause = 1
+
+[State 190, Explod]
+Type = Explod
+Trigger1 = Time = 136
+ID = 30001
+Anim = 30001
+Pos = 0,0
+PosType = P1
+Scale = 0.75,0.75
+SprPriority = 4
+OwnPal = 1
+OnTop = 1
+Vel = 30,-10
+Accel = 0,0
+RemoveTime = 130
+IgnoreHitPause = 1
+
+[State 192, ヘルパーを出す]
+type = Helper
+trigger1 = Time = 130
+name = "Yuseigou"
+HelperType = Player
+stateno = 55555
+ID = 55555
+pos = -200,0
+
+[State 190, 透明化]
+type = AssertSpecial
+trigger1 = Time < 170
+flag = Invisible
+
+[State 190, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s3,0
+Volume = -180
+
+[State 190, PlaySnd]
+Type = PlaySnd
+Trigger1 = Time = 136
+Value = s1,2
+
+[State 190, Voice]
+Type = PlaySnd
+Trigger1 = EnemyNear,Name != "Apolia_Scarlet"
+Trigger1 = Time = 130
+Value = s190,0+Random%2
+
+[State 190, Voice]
+Type = PlaySnd
+Trigger1 = EnemyNear,Name = "Apolia_Scarlet"
+Trigger1 = Time = 130
+Value = s191,0
+
+[State 190, ステート変更]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+
+
+;後ろから走ってくるヘルパー
+[Statedef 55555]
+Type = S
+Ctrl = 0
+SprPriority = 3
+
+[State 55555, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 55555
+Value = 55555
+IgnoreHitPause = 1
+
+[State 55555, ScreenBound]
+Type = ScreenBound
+Trigger1 = IsHelper
+Value = 0
+MoveCamera = 
+
+[State 55555, VelSet]
+Type = VelSet
+Trigger1 = AnimElemTime(4) <= 1
+X = 20
+
+[State 55555, VelSet]
+Type = VelSet
+Trigger1 = AnimElem = 5
+X = 0
+
+[State 55555, 消滅]
+Type = DestroySelf
+Trigger1 = AnimTime = 0
+Trigger2 = Parent,StateNo != 190
+
+
+
+
+
+
+
+;永続ターゲット
+[StateDef 100000]
+Type = A
+MoveType = A
+Physics = N
+SprPriority = 7
+Ctrl = 0
+
+[State 100000, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = NumTarget = 0
+Trigger1 = Anim != 99999
+Value = 99999
+
+[State 100000, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = !Target,IsHelper
+Trigger1 = NumTarget > 0
+Trigger1 = Anim != 99998
+Value = 99998
+
+[State 100000, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0,0
+
+[State 100000, BindToParent]
+Type = BindToParent
+Trigger1 = 1
+Time = 1
+Facing = 1
+Pos = 0,0
+
+[State 100000, TargetDrop1]
+Type = TargetDrop
+Trigger1 = NumTarget > 1
+KeepOne = 1
+
+[State 100000, TargetDrop2]
+Type = TargetDrop
+Trigger1 = NumTarget
+Trigger1 = Target,IsHelper
+
+[State 100000, ReversalDef];当身
+Type = ReversalDef
+Trigger1 = 1
+Reversal.Attr = SCA,AA,AT,AP
+PauseTime = 0,2
+SparkNo = -1
+HitSound = -1
+NumHits = 0
+IgnoreHitPause = 1
+ID = 100000
+
+[State 100000, TargetLifeAdd]
+Type = TargetLifeAdd
+TriggerAll = NumTarget = 1
+TriggerAll = IsHelper(100000)
+Trigger1 = Root,Anim = 3100 && NumHelper(3101) > 0
+Value = -10
+Absolute = 1
+IgnoreHitPause = 1
+
+[State 100000, TargetLifeAdd]
+Type = TargetLifeAdd
+TriggerAll = NumTarget = 1
+TriggerAll = IsHelper(100000)
+Trigger1 = Root,Anim = 3201 && Root,NumProjID(8301) > 0
+Value = -2147483647
+Absolute = 1
+IgnoreHitPause = 1
+
+
+
+

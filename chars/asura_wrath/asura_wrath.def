@@ -1,0 +1,38 @@
+;===========================================================================
+;=====[DEFINITION FILE FOR KFM MASTER BY MIKE WEREWOLF]=====================
+;===========================================================================
+
+; Definition file for New Kung Fu Man
+; Contains all the filenames needed for the character
+
+; Player information
+[Info]
+name = "Asura Wrath"        ;Name of character
+displayname = "Asura" ;Name of character to display
+versiondate = 01,01,2005    ;Version date of character
+mugenversion = 04,14,2001   ;Version of M.U.G.E.N character works on
+author = "Elecbyte & Mike Werewolf"         ;Character author name
+pal.defaults = 7, 6,3,4,2      ;Default palettes in order of preference
+
+; Files for the player
+[Files]
+cmd     = kfm-master.cmd   ;Command set
+cns     = kfm-master.cns   ;Constants
+st      = kfm-master.cns   ;States
+st1	= newmoves-master.cns ;New states
+st2	= common-master.cns;New common states
+stcommon = common1.cns	   ;Common states
+sprite  = kfm-master.sff   ;Sprite
+anim    = kfm-master.air   ;Animation
+sound   = kfm-master.snd   ;Sound
+pal1    = asura.act   ;Palettes (can have up to 12)
+pal2    = asura.act
+pal3	= asura.act
+pal4	= asura.act
+pal5	= asura.act
+pal6	= asura.act
+
+; Arcade mode
+[Arcade]
+intro.storyboard = 
+ending.storyboard = 

@@ -1,0 +1,738 @@
+;昇竜ホイール
+[StateDef 1000]
+Type = S
+MoveType = A
+Physics = S
+Anim = 1000
+Juggle = 1
+Ctrl = 0
+VelSet = 0,0
+
+[State 1000, Helper]
+Type = Helper
+Trigger1 = AnimElem = 2
+HelperType = Player
+Name = "ATARI_HANTEI_1000"
+ID = 1005
+StateNo = 1005
+Pos = 0,0
+PosType = P1
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+
+[State 1000, StateTypeSet]
+Type = StateTypeSet
+Trigger1 = AnimElem = 2
+StateType = A
+Physics = A
+
+[State 1000, VelSet]
+Type = VelSet
+Trigger1 = AnimElem = 2
+X = 5
+Y = -7.5
+
+[State 1000, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s0,4
+
+[State 1000, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s200,11
+
+
+[StateDef 1005]
+Type = S
+MoveType = A
+Physics = S
+Ctrl = 0
+SprPriority = 999
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 1005, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 1005
+Value = 1005
+
+[State 1005, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+[State 1005, HitDef]
+Type = HitDef
+TriggerAll = IsHelper(1005)
+Trigger1 = !MoveContact
+Attr = S,SA
+Damage = 85,45
+AnimType = Medium
+GetPower = 50,25
+GivePower = 10,0
+HitFlag = MAF
+GuardFlag = M
+Priority = 7,Hit
+PauseTime = 0,10
+NumHits = 1
+HitSound = s1,5
+GuardSound = s120,0
+SparkNo = -1
+;Sparkxy = -10,-45
+Ground.Type = High
+Ground.SlideTime = 10
+Ground.HitTime = 10
+Ground.Velocity = -5.0,-9.0
+Guard.Velocity = -6.5
+Air.Velocity = -4.5,-8.5
+AirGuard.Velocity = -5.5,-3.5
+Fall = 1
+Air.Fall = 1
+Fall.Recover = 0
+Ground.CornerPush.VelOff = 0
+
+[State 1005, HitEffect]
+Type = Explod
+Trigger1 = MoveHit = 1
+ID = 10006000
+Anim = 6010+Random%8
+PosType = P2
+Pos = -10,-100
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+
+[State 1005, BindToRoot]
+Type = BindToRoot
+Trigger1 = 1
+Time = -1
+Facing = 1
+Pos = 0,0
+
+[State 1005, DestroySelf]
+Type = DestroySelf
+Trigger1 = AnimTime = 0
+
+;-----------------------------------------------------------------------------
+
+;ダイナマイトフィスト
+[StateDef 1010]
+Type = S
+MoveType = A
+Physics = S
+Anim = 1010
+Juggle = 1
+Ctrl = 0
+VelSet = 0,0
+
+[State 1010, Helper]
+Type = Helper
+Trigger1 = AnimElem = 1
+HelperType = Player
+Name = "Nitro-Warrior"
+ID = 7000
+StateNo = 7000
+Pos = -40,0
+PosType = P1
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+
+[State 1010, HitEffect]
+Type = Explod
+Trigger1 = ProjHit = 1
+ID = 10106010
+Anim = 6010+Random%8
+PosType = P2
+Pos = 0,-25
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+
+[State 1010, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,8+Random%2
+
+[State 1010, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+[StateDef 7000]
+Type = S
+MoveType = A
+Physics = S
+Ctrl = 0
+SprPriority = 999
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 7000, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 7000
+Value = 7000
+
+[State 7000, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+[State 7000, Projectile]
+Type = Projectile
+Trigger1 = AnimElem = 7
+Attr = S,SA
+Damage = 140
+AnimType = Medium
+GetPower = 50,30
+GivePower = 30,10
+HitFlag = MAFD
+GuardFlag = 
+Priority = 7,Hit
+PauseTime = 0,10
+NumHits = 1
+HitSound = s1,9
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -10,-25
+Ground.Type = High
+Ground.SlideTime = 20
+Ground.HitTime = 20
+Ground.Velocity = -7,-5.5
+Guard.Velocity = -6.25
+Air.Velocity = -6,-4.5
+AirGuard.Velocity = -4.75,-3.5
+Fall = 1
+Air.Fall = 1
+Fall.Recover = 0
+EnvShake.Time = 30
+EnvShake.Freq = 120
+EnvShake.Ampl = -8
+PalFX.Time = 100
+PalFX.Mul = 240,192,128
+PalFX.SinAdd = 96,128,160,16
+PalFX.Add = 224,128,64
+ProjID = 7010
+PosType = P1
+OffSet = 70,-25
+Velocity = 0,0
+ProjAnim = 7010
+ProjScale = 1.0,1.0
+ProjRemove = 0
+ProjRemoveTime = 70
+ProjHits = 114514
+ProjMissTime = 114514
+ProjSprPriority = 999
+ProjPriority = 2147483647
+
+[State 7000, BindToRoot]
+Type = BindToRoot
+Trigger1 = 1
+Time = -1
+Facing = 1
+Pos = -40,0
+
+[State 7000, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0
+
+[State 7000, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 7
+Value = s2,0
+
+[State 7000, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 8
+Value = s2,1
+
+[State 7000, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 7
+Value = s200,2
+
+[State 7000, DestroySelf]
+Type = DestroySelf
+Trigger1 = AnimTime = 0
+
+;-----------------------------------------------------------------------------
+
+;カード発射
+[StateDef 1020]
+Type = S
+MoveType = A
+Physics = S
+Anim = 1020
+Juggle = 1
+Ctrl = 0
+VelSet = 0,0
+
+[State 1020, Projectile]
+Type = Projectile
+Trigger1 = AnimElem = 2
+Attr = S,SA
+Damage = 100,50
+AnimType = Medium
+GetPower = 50,30
+GivePower = 30,10
+HitFlag = MAF
+GuardFlag = M
+Priority = 7,Hit
+PauseTime = 0,2
+NumHits = 1
+HitSound = s1,5
+GuardSound = s120,0
+SparkNo = -1
+;SparkXY = -10,-25
+Ground.Type = High
+Ground.SlideTime = 20
+Ground.HitTime = 20
+Ground.Velocity = -6,-2.5
+Guard.Velocity = -4.5
+Air.Velocity = -6,-3.5
+AirGuard.Velocity = -2.75,-1.5
+Fall = 1
+Air.Fall = 1
+Fall.Recover = 0
+ProjID = 7020
+PosType = P1
+OffSet = 0,0
+Velocity = 8,0
+ProjAnim = 7020
+ProjScale = 1.0,1.0
+ProjRemove = 0
+ProjRemoveTime = 100
+ProjHits = 114514
+ProjMissTime = 114514
+ProjSprPriority = 999
+ProjPriority = 2147483647
+AfterImage.Time = 100
+AfterImage.Length = 4
+AfterImage.TimeGap = 2
+AfterImage.FrameGap = 1
+AfterImage.PalColor = 200
+AfterImage.PalInvertAll = 0
+AfterImage.PalBright = 0,0,0
+AfterImage.PalContrast = 255,0,120
+AfterImage.PalAdd = 0,0,0
+AfterImage.PalMul = 1,1,1
+AfterImage.Trans = Add
+
+[State 1020, HitEffect]
+Type = Explod
+Trigger1 = ProjHit = 1
+ID = 10106010
+Anim = 6010+Random%8
+PosType = P2
+Pos = 0,-70
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+
+[State 1020, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 2
+Value = s2,2
+
+[State 1020, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,7
+
+[State 1020, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+;-----------------------------------------------------------------------------
+
+;カードシールド
+[StateDef 1100]
+Type = S
+MoveType = A
+Physics = S
+Anim = 1100
+Juggle = 1
+Ctrl = 0
+VelSet = 0,0
+
+[State 1100, Helper]
+Type = Helper
+Trigger1 = AnimElem = 1
+HelperType = Player
+Name = "CARD_SHIELD"
+ID = 7030
+StateNo = 7030
+Pos = 0,-43
+PosType = P1
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+Size.XScale = 1.0
+Size.YScale = 1.0
+
+[State 1100, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s2,3
+
+[State 1100, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,14
+
+[State 1100, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+[StateDef 7030]
+Type = S
+MoveType = A
+Physics = S
+Ctrl = 0
+SprPriority = 999
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 7030, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 7030
+Value = 7030
+
+[State 7030, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+[State 7030, HitDef]
+Type = HitDef
+TriggerAll = IsHelper(7030)
+Trigger1 = !MoveContact
+Attr = S,SA
+Damage = 90,45
+AnimType = Medium
+GetPower = 50,25
+GivePower = 10,0
+HitFlag = MAF
+GuardFlag = L
+Priority = 7,Hit
+PauseTime = 0,10
+NumHits = 1
+HitSound = s2,4
+GuardSound = s120,0
+SparkNo = -1
+;Sparkxy = -10,-45
+Ground.Type = High
+Ground.SlideTime = 10
+Ground.HitTime = 10
+Ground.Velocity = -6.0,-8.0
+Guard.Velocity = -4.5
+Air.Velocity = -6.5,-8.5
+AirGuard.Velocity = -4.5,-3.5
+Fall = 1
+Air.Fall = 1
+Fall.Recover = 0
+Ground.CornerPush.VelOff = 0
+EnvShake.Time = 30
+EnvShake.Freq = 120
+EnvShake.Ampl = -8
+
+[State 7030, HitEffect]
+Type = Explod
+Trigger1 = MoveHit = 1
+ID = 70306000
+Anim = 6010+Random%8
+PosType = P2
+Pos = -10,-45
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+
+[State 7030, BindToRoot]
+Type = BindToRoot
+Trigger1 = 1
+Time = -1
+Facing = 1
+Pos = 0,-43
+
+[State 7030, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0
+
+[State 7030, DestroySelf]
+Type = DestroySelf
+Trigger1 = AnimTime = 0
+
+;-----------------------------------------------------------------------------
+
+;ミルクでも貰おうか
+[StateDef 1110]
+Type = S
+MoveType = A
+Physics = S
+Anim = 1110
+Juggle = 1
+Ctrl = 0
+VelSet = 0,0
+
+[State 1110, Helper]
+Type = Helper
+Trigger1 = AnimElem = 1
+HelperType = Player
+Name = "MILK"
+ID = 7040
+StateNo = 7040
+Pos = 0,-300
+PosType = P2
+KeyCtrl = 0
+OwnPal = 1
+Facing = 1
+Size.XScale = 1.0
+Size.YScale = 1.0
+
+[State 1110, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s2,5
+
+[State 1110, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,15
+
+[State 1110, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+[StateDef 7040]
+Type = S
+MoveType = A
+Physics = S
+Ctrl = 0
+SprPriority = 999
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 7040, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 7040
+Value = 7040
+
+[State 7040, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+[State 7040, HitDef]
+Type = HitDef
+TriggerAll = IsHelper(7040)
+Trigger1 = !MoveContact
+Attr = A,SA
+Damage = 60,40
+AnimType = Medium
+GetPower = 50,25
+GivePower = 10,0
+HitFlag = MAF
+GuardFlag = M
+Priority = 7,Hit
+PauseTime = 0,1
+NumHits = 1
+HitSound = s1,5
+GuardSound = s120,0
+SparkNo = -1
+;Sparkxy = -10,-45
+Ground.Type = Low
+Ground.SlideTime = 30
+Ground.HitTime = 30
+Ground.Velocity = -1.0
+Guard.Velocity = -0.5
+Air.Velocity = -0.1,9.0
+AirGuard.Velocity = -4.5,-3.5
+Fall = 0
+Air.Fall = 1
+Fall.Recover = 0
+Ground.CornerPush.VelOff = 0
+
+[State 7040, HitEffect]
+Type = Explod
+Trigger1 = MoveHit = 1
+ID = 70406000
+Anim = 6010+Random%8
+PosType = P2
+Pos = -10,-45
+SprPriority = 7
+OwnPal = 1
+OnTop = 1
+
+[State 7040, VelSet]
+Type = VelSet
+Trigger1 = 1
+X = 0
+Y = 10
+
+[State 7040, ScreenBound]
+Type = ScreenBound
+Trigger1 = 1
+Value = 0
+MoveCamera = 0
+
+[State 7040, ChangeState]
+Type = ChangeState
+Trigger1 = Pos Y >= 0
+Value = 7050
+
+
+[StateDef 7050]
+Type = S
+MoveType = A
+Physics = S
+Ctrl = 0
+VelSet = 0,0
+SprPriority = 999
+HitDefPersist = Anim = StateNo
+MoveHitPersist = Anim = StateNo
+HitCountPersist = Anim = StateNo
+
+[State 7050, ChangeAnim]
+Type = ChangeAnim
+Trigger1 = Anim != 7050
+Value = 7050
+
+[State 7050, AssertSpecial]
+Type = AssertSpecial
+Trigger1 = 1
+Flag = NoShadow
+
+[State 7050, HitDef]
+Type = HitDef
+TriggerAll = IsHelper(7040)
+Trigger1 = !MoveContact
+Attr = S,SP
+Damage = 70,45
+AnimType = Medium
+GetPower = 50,25
+GivePower = 10,0
+HitFlag = MAF
+GuardFlag = L
+Priority = 7,Hit
+PauseTime = 0,30
+NumHits = 1
+HitSound = -1
+GuardSound = s120,0
+SparkNo = -1
+;Sparkxy = -10,-45
+Ground.Type = Low
+Ground.SlideTime = 30
+Ground.HitTime = 30
+Ground.Velocity = 0.1,-9.0
+Guard.Velocity = -3.5
+Air.Velocity = 0.1,-8.0
+AirGuard.Velocity = -3.5,-3.5
+Fall = 1
+Air.Fall = 1
+Fall.Recover = 0
+Ground.CornerPush.VelOff = 0
+
+[State 7050, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s2,6
+
+[State 7050, DestroySelf]
+Type = DestroySelf
+Trigger1 = AnimTime = 0
+
+;-----------------------------------------------------------------------------
+
+;ブロッキング
+[StateDef 1120]
+Type = S
+MoveType = I
+Physics = S
+Anim = 1120
+Ctrl = 0
+VelSet = 0,0
+
+[State 1120, HitOverRide]
+Type = HitOverRide
+Trigger1 = AnimElem = 1
+Time = 20
+Attr = SCA,AA,AP,AT
+stateno = 1121
+IgnoreHitPause = 1
+
+[State 1120, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+[StateDef 1121]
+Type = S
+MoveType = A
+Physics = S
+Anim = 1121
+Ctrl = 0
+VelSet = 0,0
+
+[State 1121, SuperPause]
+Type = SuperPause
+Trigger1 = AnimElem = 1
+Time = 15
+MoveTime = 15
+Anim = -1
+Darken = 0
+
+[State 1121, PalFX]
+Type = PalFX
+Trigger1 = AnimElem = 1
+Time = 15
+Color = 256
+InvertAll = 0
+Add = 0,0,256
+Mul = 256,256,256
+
+[State 1121, PlaySnd]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s2,7
+
+[State 1121, Voice]
+Type = PlaySnd
+Trigger1 = AnimElem = 1
+Value = s200,3
+
+[State 1121, NotHitBy]
+Type = NotHitBy
+Trigger1 = Time = 20
+Value = SCA
+Time = 120
+
+[State 1121, ChangeState]
+Type = ChangeState
+Trigger1 = AnimTime = 0
+Value = 0
+Ctrl = 1
+
+
+

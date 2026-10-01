@@ -1,0 +1,447 @@
+
+;------------------------------------------------------------------
+;Kunai poziomo
+[Statedef 70700]
+type = S
+movetype= A
+physics = N
+juggle  = 3
+velset = 0,0
+anim = 70700
+sprpriority = 2
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = numhelper(698) = 1 
+trigger1 = helper(698), time < 1384
+fvar(2) = cond(0.6*ABS(p2bodydist x)>256,256,0.6*ABS(p2bodydist x))
+
+[State 0, VarSet]
+type = VarAdd
+trigger1 = numhelper(698) = 1 
+trigger1 = helper(698), time >= 1640-ceil(fvar(2))
+trigger1 = fvar(2) > 0
+fvar(2) = -1
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = numhelper(698) = 0
+fvar(2) = 0
+
+[State 1, Trans] 
+type = Trans 
+trigger1 = fvar(2) !=0
+trans = addalpha 
+alpha = ceil(256-fvar(2)),ceil(fvar(2))
+
+[State 0, PosSet]
+type = velSet
+trigger1 = time = 0
+x = 16*parent,fvar(16)
+y = -1
+
+[State 0, VelAdd]
+type = VelAdd
+trigger1 = time > 1
+x = -0.1
+y = 0.1
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = vel x != 0
+value = -atan(vel y/vel x)*180/PI 
+
+[State 0, 1]
+type = HitDef
+trigger1 = !time
+attr = A, NP
+getpower = 0,0
+givepower = 0,0
+damage = 40,20
+animtype = Light
+guardflag = MA
+hitflag = MAFD
+priority = 3, Hit
+pausetime = 0, 5
+sparkno = -1
+sparkxy = -10, 0
+hitsound = -1;S4,21
+guardsound = S77, 0
+ground.type = High
+ground.slidetime = 5
+ground.hittime = 20
+ground.velocity = -2
+airguard.velocity = -1.9,-.8
+air.type = High
+air.velocity = -2,-3
+air.hittime = 20
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = movehit
+value = S21,3
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = moveguarded
+value = S21,2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = moveguarded
+value = S21,1
+
+[State 0, HitOverride]
+type = HitOverride
+trigger1 = 1
+attr = SCA,NA,SA,HA,NP,SP,HP,ST,HT,NT
+stateno = 70705
+time = 9999
+
+[State 0, HitBy]
+type = HitBy
+trigger1 = 1
+value = SCA,NA,SA,HA,NP,SP,ST,NT
+time = -1
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = ,HP,HT
+time = -1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = frontedgebodydist < -50
+ignorehitpause = 1
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = moveguarded
+trigger2 = frontedgedist < 0
+value = 70705
+ctrl = 0
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = pos y > -1
+value = 70706
+ctrl = 0
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = movehit
+value = 70720
+ctrl = 0
+;------------------------------------------------------------------
+;Kunai z powietrza
+[Statedef 70701]
+type = S
+movetype= A
+physics = N
+juggle  = 3
+velset = 0,0
+anim = 70700 ; animacja lotu ukoœnie
+sprpriority = 2
+
+[State 0, PosSet]
+type = velSet
+trigger1 = time = 0
+x= cos(PI/8)*16*parent,fvar(16)
+y= sin(PI/8)*16*parent,fvar(16)-1
+
+[State 0, VelAdd]
+type = VelAdd
+trigger1 = time > 1
+x = -0.1
+y = 0.1
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = vel x != 0
+value = -atan(vel y/vel x)*180/PI 
+
+[State 0, 1]
+type = HitDef
+trigger1 = !time
+attr = A, NP
+getpower = 0,0
+givepower = 0,0
+damage = 40,20
+animtype = Light
+guardflag = MA
+hitflag = MAFD
+priority = 3, Hit
+pausetime = 0, 5
+sparkno = -1
+sparkxy = -10, 0
+hitsound = -1
+guardsound = S77, 0
+ground.type = High
+ground.slidetime = 5
+ground.hittime = 20
+ground.velocity = -2
+airguard.velocity = -1.9,-.8
+air.type = High
+air.velocity = -2,-3
+air.hittime = 20
+
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = movehit
+value = S21,3
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = moveguarded
+value = S21,2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = moveguarded
+value = S21,1
+
+[State 0, HitOverride]
+type = HitOverride
+trigger1 = 1
+attr = SCA,NA,SA,HA,NP,SP,HP,ST,HT,NT
+stateno = 70705
+time = 9999
+
+[State 0, HitBy]
+type = HitBy
+trigger1 = 1
+value = SCA,NA,SA,HA,NP,SP,ST,NT
+time = -1
+
+[State 0, NotHitBy]
+type = NotHitBy
+trigger1 = 1
+value = ,HP,HT
+time = -1
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = frontedgebodydist < -50
+ignorehitpause = 1
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = moveguarded
+trigger2 = frontedgedist < 0
+value = 70705
+ctrl = 0
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = pos y > -1
+value = 70706
+ctrl = 0
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = movehit
+value = 70720
+ctrl = 0
+;------------------------------------------------------------------
+;Kunai (odbicie)
+[Statedef 70705]
+type    = S
+movetype= A
+physics = S
+juggle  = 4
+poweradd= 0
+anim = 70700
+ctrl = 0
+
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = numhelper(698) = 1 
+trigger1 = helper(698), time < 1384
+fvar(2) = cond(0.6*ABS(p2bodydist x)>256,256,0.6*ABS(p2bodydist x))
+
+[State 0, VarSet]
+type = VarAdd
+trigger1 = numhelper(698) = 1 
+trigger1 = helper(698), time >= 1640-ceil(fvar(2))
+trigger1 = fvar(2) > 0
+fvar(2) = -1
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = numhelper(698) = 0
+fvar(2) = 0
+
+[State 1, Trans] 
+type = Trans 
+trigger1 = fvar(2) !=0
+trans = addalpha 
+alpha = ceil(256-fvar(2)),ceil(fvar(2))
+
+
+
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = p2stateno != [120,155]
+trigger1 = time = 0
+value = S21,0
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = 1
+value = -time*30
+
+[State 0, Gravity]
+type = Gravity
+trigger1 = 1
+
+[State 707002, VelSet]
+type = VelSet
+trigger1 = time = 0
+y = -(random%30+20)/10
+
+[State 707002, VelSet]
+type = VelSet
+trigger1 = 1
+x = (random%30+20)/10
+
+[State 0, Turn]
+type = Turn
+trigger1 = time = 0
+
+[State 707002, NotHitBy]
+type = NotHitBy
+trigger1 = !time
+value = SCA
+time = -1
+
+[State 0, ChangeState]
+type = ChangeState
+trigger1 = pos Y >= -5
+value = 70706
+
+;------------------------------------------------------------------
+;Kunai (wbicie w ziemiê)
+[StateDef 70706]
+type = A
+movetype= A
+physics = N
+juggle  = 3
+velset = 0,0
+ctrl = 0
+anim = 70702
+sprpriority = 2
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = numhelper(698) = 1 
+trigger1 = helper(698), time < 1384
+fvar(2) = cond(0.6*ABS(p2bodydist x)>256,256,0.6*ABS(p2bodydist x))
+
+[State 0, VarSet]
+type = VarAdd
+trigger1 = numhelper(698) = 1 
+trigger1 = helper(698), time >= 1640-ceil(fvar(2))
+trigger1 = fvar(2) > 0
+fvar(2) = -1
+
+[State 0, VarSet]
+type = VarSet
+trigger1 = numhelper(698) = 0
+fvar(2) = 0
+
+[State 1, Trans] 
+type = Trans 
+trigger1 = fvar(2) !=0
+trans = addalpha 
+alpha = ceil(256-fvar(2)),ceil(fvar(2))
+
+[State 0, AngleDraw]
+type = AngleDraw
+trigger1 = time = 0
+value = 0
+
+[State 0, ChangeAnim]
+type = ChangeAnim
+trigger1 = prevstateno = 607
+trigger2 = prevstateno = 1314
+value = 70703
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+value = S21,0
+
+[State 707002, NotHitBy]
+type = NotHitBy
+trigger1 = !time
+value = SCA
+time = -1
+
+[State 0, PosSet]
+type = PosSet
+trigger1 = 1
+y = 0
+
+[State 1012, Trans]
+type = Trans
+trigger1 = time >= 35
+trans = addalpha
+alpha = ceil(256-(time-35)*9.6),ceil((time-35)*9.6)
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = time = 65
+;------------------------------------------------------------------
+;trafienie kunaiem /shurikenem
+[Statedef 70720]
+type = S
+movetype= A
+physics = N
+juggle  = 3
+velset = 0,0
+sprpriority = 2
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = time = 0
+trigger1 = prevstateno = 70712
+value = S11,7
+
+[State 6002, NotHitBy]
+type = NotHitBy
+trigger1 = !time
+value = SCA
+time = -1
+
+[State 0, RemoveExplod]
+type = RemoveExplod
+trigger1 = time = 0
+id = 1260
+
+[State 0, PlaySnd]
+type = PlaySnd
+trigger1 = p2stateno = [5000,5999]
+value = S21,3
+
+[State 0, Explod]
+type = Explod
+trigger1 = time = 0
+anim = 6001
+ID = 10
+pos = 25,0
+postype = p1
+facing = 1
+vfacing = 1
+removetime = -2
+sprpriority = 3
+Scale = .25,.25
+
+[State 0, DestroySelf]
+type = DestroySelf
+trigger1 = time = 0
+ignorehitpause = 1

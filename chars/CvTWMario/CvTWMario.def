@@ -1,0 +1,27 @@
+[Info]
+name="Mario Mario"
+displayname="Mario Mario"
+versiondate=
+mugenversion=1.0
+author="SeanAltly"
+pal.defaults=1,2 ,3,4
+[Files]
+sprite=Mario.sff
+sound=Mario.snd
+anim=Mario.air
+cmd=Mario.cmd
+cns=Mario.cns
+st=Mario.cns
+stcommon=common1.cns
+pal1=Mario1.act
+pal2=Mario2.act
+pal3=Mario2a.act
+pal4=Mario3a.act
+pal5=Mario4a.act
+pal6=Mario5a.act
+pal7=Mario6a.act
+pal8=Mario1a.act
+st1=
+[Arcade]
+intro.storyboard=
+ending.storyboard=
